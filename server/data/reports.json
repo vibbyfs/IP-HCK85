@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Sampah menumpuk",
+    "description": "Ada sampah di depan gang",
+    "imageUrl": "http://example.com/image.jpg",
+    "UserId": 2,
+    "CategoryId": 1,
+    "RtId": 1,
+    "status": "Pending",
+    "latitude": "-6.200000",
+    "longitude": "106.816666",
+    "createdAt": "2025-07-19T11:00:00Z",
+    "updatedAt": "2025-07-19T11:00:00Z"
+  }
+]

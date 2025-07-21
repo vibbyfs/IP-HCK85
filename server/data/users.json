@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "Pak RT",
+    "email": "rt@mail.com",
+    "password": "password",
+    "RtId": 1,
+    "RoleId": 1,
+    "GoogleId": null,
+    "isApproved": true,
+    "approvedAt": "2025-07-19T10:05:00Z",
+    "createdAt": "2025-07-19T10:00:00Z",
+    "updatedAt": "2025-07-19T10:05:00Z"
+  },
+  {
+    "id": 2,
+    "name": "Warga",
+    "email": "warga@mail.com",
+    "password": "password",
+    "RtId": 1,
+    "RoleId": 2,
+    "GoogleId": null,
+    "isApproved": false,
+    "approvedAt": null,
+    "createdAt": "2025-07-19T10:10:00Z",
+    "updatedAt": "2025-07-19T10:10:00Z"
+  }
+]

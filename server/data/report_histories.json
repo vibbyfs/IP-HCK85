@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "ReportId": 1,
+    "status": "Pending",
+    "ChangedBy": 1,
+    "note": "lorem ipsum dolor sit amet",
+    "createdAt": "2025-07-19T11:00:00Z",
+    "updatedAt": "2025-07-19T11:00:00Z"
+  }
+]
