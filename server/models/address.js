@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
   Address.init({
     provinceId: {
   type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-    len: [2, 10], // ID provinsi biasanya pendek
-  },
+  // allowNull: false,
+  // validate: {
+  //   notEmpty: true,
+  //   len: [2, 10], // ID provinsi biasanya pendek
+  // },
 },
 provinceName: {
   type: DataTypes.STRING,
@@ -32,10 +32,10 @@ provinceName: {
 },
 regencyId: {
   type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-  },
+  // allowNull: false,
+  // validate: {
+  //   notEmpty: true,
+  // },
 },
 regencyName: {
   type: DataTypes.STRING,
@@ -46,10 +46,10 @@ regencyName: {
 },
 districtId: {
   type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-  },
+  // allowNull: false,
+  // validate: {
+  //   notEmpty: true,
+  // },
 },
 districtName: {
   type: DataTypes.STRING,
@@ -60,10 +60,10 @@ districtName: {
 },
 villageId: {
   type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-  },
+  // allowNull: false,
+  // validate: {
+  //   notEmpty: true,
+  // },
 },
 villageName: {
   type: DataTypes.STRING,

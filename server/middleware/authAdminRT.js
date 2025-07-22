@@ -5,7 +5,7 @@ async function authAdminRT(req, res, next) {
         return res.status(401).json({ message: 'Access denied.' });
     }
 
-    if (req.user.RoleId !== 'RT') {
+    if (req.user.RoleId !== 'Admin') {
         return res.status(403).json({ message: 'Only RT admin can access.' });
     }
     next();

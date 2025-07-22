@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     RtId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     isApproved: {
       type: DataTypes.BOOLEAN,

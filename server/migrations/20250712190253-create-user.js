@@ -37,7 +37,7 @@ module.exports = {
       },
       RtId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'Rts',
           key: 'id'

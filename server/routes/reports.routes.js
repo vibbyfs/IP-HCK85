@@ -11,8 +11,8 @@ reportRouter.get('/:id', reportsController.getReportDetail);
 reportRouter.put('/:id', reportsController.updateReport);
 reportRouter.delete('/:id', reportsController.deleteReport);
 reportRouter.patch('/:id/status', reportsController.updateStatus);
-const upload = require('../middleware/upload');
 
+const upload = require('../middleware/upload');
 reportRouter.post('/:id/upload', upload.single('image'), reportsController.uploadReportImage);
 
 module.exports = reportRouter;
