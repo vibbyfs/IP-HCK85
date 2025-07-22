@@ -19,7 +19,7 @@ export default function LoginPage() {
 
       localStorage.setItem("access_token", response.data.access_token);
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       console.error("Login error:", err);
       const msgErr = err.response?.data?.message || "Something went wrong.";
