@@ -2,6 +2,8 @@ const { Citizen, Address } = require("../models");
 
 class CitizenController {
     static async createOrUpdateCitizen(req, res) {
+
+        const UserId = req.user.id
         try {
             const {
                 nationalId,
@@ -14,6 +16,7 @@ class CitizenController {
                 bloodType,
                 occupation,
                 nationality,
+                AddressId
             } = req.body;
 
             const citizen = await Citizen.create({
@@ -27,7 +30,8 @@ class CitizenController {
                 bloodType,
                 occupation,
                 nationality,
-                UserId: req.user.UserId
+                UserId,
+                AddressId
             });
 
             res.status(200).json(citizen);

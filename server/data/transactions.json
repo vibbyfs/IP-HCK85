@@ -1,0 +1,167 @@
+[
+  {
+    "id": 1,
+    "UserId": 1,
+    "amount": 50000,
+    "method": "Transfer",
+    "status": "Paid",
+    "transactionId": "TRX20250701",
+    "paidAt": "2025-07-01T08:00:00Z",
+    "createdAt": "2025-07-01T08:00:00Z",
+    "updatedAt": "2025-07-01T08:00:00Z"
+  },
+  {
+    "id": 2,
+    "UserId": 2,
+    "amount": 75000,
+    "method": "QRIS",
+    "status": "Pending",
+    "transactionId": "TRX20250702",
+    "paidAt": null,
+    "createdAt": "2025-07-02T09:15:00Z",
+    "updatedAt": "2025-07-02T09:15:00Z"
+  },
+  {
+    "id": 3,
+    "UserId": 3,
+    "amount": 100000,
+    "method": "Cash",
+    "status": "Paid",
+    "transactionId": "TRX20250703",
+    "paidAt": "2025-07-03T10:30:00Z",
+    "createdAt": "2025-07-03T10:30:00Z",
+    "updatedAt": "2025-07-03T10:30:00Z"
+  },
+  {
+    "id": 4,
+    "UserId": 1,
+    "amount": 25000,
+    "method": "Transfer",
+    "status": "Failed",
+    "transactionId": "TRX20250704",
+    "paidAt": null,
+    "createdAt": "2025-07-04T11:45:00Z",
+    "updatedAt": "2025-07-04T11:45:00Z"
+  },
+  {
+    "id": 5,
+    "UserId": 2,
+    "amount": 60000,
+    "method": "QRIS",
+    "status": "Paid",
+    "transactionId": "TRX20250705",
+    "paidAt": "2025-07-05T12:00:00Z",
+    "createdAt": "2025-07-05T12:00:00Z",
+    "updatedAt": "2025-07-05T12:00:00Z"
+  },
+  {
+    "id": 6,
+    "UserId": 3,
+    "amount": 45000,
+    "method": "Cash",
+    "status": "Pending",
+    "transactionId": "TRX20250706",
+    "paidAt": null,
+    "createdAt": "2025-07-06T13:15:00Z",
+    "updatedAt": "2025-07-06T13:15:00Z"
+  },
+  {
+    "id": 7,
+    "UserId": 1,
+    "amount": 80000,
+    "method": "Transfer",
+    "status": "Paid",
+    "transactionId": "TRX20250707",
+    "paidAt": "2025-07-07T14:30:00Z",
+    "createdAt": "2025-07-07T14:30:00Z",
+    "updatedAt": "2025-07-07T14:30:00Z"
+  },
+  {
+    "id": 8,
+    "UserId": 2,
+    "amount": 30000,
+    "method": "QRIS",
+    "status": "Failed",
+    "transactionId": "TRX20250708",
+    "paidAt": null,
+    "createdAt": "2025-07-08T15:45:00Z",
+    "updatedAt": "2025-07-08T15:45:00Z"
+  },
+  {
+    "id": 9,
+    "UserId": 3,
+    "amount": 90000,
+    "method": "Cash",
+    "status": "Paid",
+    "transactionId": "TRX20250709",
+    "paidAt": "2025-07-09T16:00:00Z",
+    "createdAt": "2025-07-09T16:00:00Z",
+    "updatedAt": "2025-07-09T16:00:00Z"
+  },
+  {
+    "id": 10,
+    "UserId": 1,
+    "amount": 55000,
+    "method": "Transfer",
+    "status": "Pending",
+    "transactionId": "TRX20250710",
+    "paidAt": null,
+    "createdAt": "2025-07-10T17:15:00Z",
+    "updatedAt": "2025-07-10T17:15:00Z"
+  },
+  {
+    "id": 11,
+    "UserId": 2,
+    "amount": 70000,
+    "method": "QRIS",
+    "status": "Paid",
+    "transactionId": "TRX20250711",
+    "paidAt": "2025-07-11T18:30:00Z",
+    "createdAt": "2025-07-11T18:30:00Z",
+    "updatedAt": "2025-07-11T18:30:00Z"
+  },
+  {
+    "id": 12,
+    "UserId": 3,
+    "amount": 40000,
+    "method": "Cash",
+    "status": "Failed",
+    "transactionId": "TRX20250712",
+    "paidAt": null,
+    "createdAt": "2025-07-12T19:45:00Z",
+    "updatedAt": "2025-07-12T19:45:00Z"
+  },
+  {
+    "id": 13,
+    "UserId": 1,
+    "amount": 95000,
+    "method": "Transfer",
+    "status": "Paid",
+    "transactionId": "TRX20250713",
+    "paidAt": "2025-07-13T20:00:00Z",
+    "createdAt": "2025-07-13T20:00:00Z",
+    "updatedAt": "2025-07-13T20:00:00Z"
+  },
+  {
+    "id": 14,
+    "UserId": 2,
+    "amount": 35000,
+    "method": "QRIS",
+    "status": "Pending",
+    "transactionId": "TRX20250714",
+    "paidAt": null,
+    "createdAt": "2025-07-14T21:15:00Z",
+    "updatedAt": "2025-07-14T21:15:00Z"
+  },
+  {
+    "id": 15,
+    "UserId": 3,
+    "amount": 60000,
+    "method": "Cash",
+    "status": "Paid",
+    "transactionId": "TRX20250715",
+    "paidAt": "2025-07-15T22:30:00Z",
+    "createdAt": "2025-07-15T22:30:00Z",
+    "updatedAt": "2025-07-15T22:30:00Z"
+  }
+]

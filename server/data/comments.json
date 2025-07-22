@@ -3,8 +3,120 @@
     "id": 1,
     "ReportId": 1,
     "UserId": 1,
-    "content": "Akan segera ditindaklanjuti",
-    "createdAt": "2025-07-19T11:10:00Z",
-    "updatedAt": "2025-07-19T11:10:00Z"
+    "content": "Akan segera ditindaklanjuti.",
+    "createdAt": "2025-07-03T08:10:00Z",
+    "updatedAt": "2025-07-03T08:10:00Z"
+  },
+  {
+    "id": 2,
+    "ReportId": 2,
+    "UserId": 2,
+    "content": "Terima kasih atas laporannya.",
+    "createdAt": "2025-07-04T09:20:00Z",
+    "updatedAt": "2025-07-04T09:20:00Z"
+  },
+  {
+    "id": 3,
+    "ReportId": 2,
+    "UserId": 3,
+    "content": "Sudah kami teruskan ke pihak terkait.",
+    "createdAt": "2025-07-05T10:35:00Z",
+    "updatedAt": "2025-07-05T10:35:00Z"
+  },
+  {
+    "id": 4,
+    "ReportId": 3,
+    "UserId": 1,
+    "content": "Mohon bersabar, tim sedang menuju lokasi.",
+    "createdAt": "2025-07-06T11:50:00Z",
+    "updatedAt": "2025-07-06T11:50:00Z"
+  },
+  {
+    "id": 5,
+    "ReportId": 3,
+    "UserId": 2,
+    "content": "Silakan datang ke balai RT untuk proses surat.",
+    "createdAt": "2025-07-07T12:05:00Z",
+    "updatedAt": "2025-07-07T12:05:00Z"
+  },
+  {
+    "id": 6,
+    "ReportId": 3,
+    "UserId": 3,
+    "content": "Kegiatan akan diumumkan lewat grup warga.",
+    "createdAt": "2025-07-08T13:20:00Z",
+    "updatedAt": "2025-07-08T13:20:00Z"
+  },
+  {
+    "id": 7,
+    "ReportId": 7,
+    "UserId": 1,
+    "content": "Sudah kami laporkan ke petugas keamanan.",
+    "createdAt": "2025-07-09T14:35:00Z",
+    "updatedAt": "2025-07-09T14:35:00Z"
+  },
+  {
+    "id": 8,
+    "ReportId": 8,
+    "UserId": 2,
+    "content": "Kami akan koordinasi dengan dinas kebersihan.",
+    "createdAt": "2025-07-10T15:50:00Z",
+    "updatedAt": "2025-07-10T15:50:00Z"
+  },
+  {
+    "id": 9,
+    "ReportId": 9,
+    "UserId": 3,
+    "content": "Terima kasih, akan segera diperbaiki.",
+    "createdAt": "2025-07-11T16:05:00Z",
+    "updatedAt": "2025-07-11T16:05:00Z"
+  },
+  {
+    "id": 10,
+    "ReportId": 3,
+    "UserId": 1,
+    "content": "Sudah kami hubungi pihak medis.",
+    "createdAt": "2025-07-12T17:20:00Z",
+    "updatedAt": "2025-07-12T17:20:00Z"
+  },
+  {
+    "id": 11,
+    "ReportId": 11,
+    "UserId": 2,
+    "content": "Kami akan mediasi antara warga terkait.",
+    "createdAt": "2025-07-13T18:35:00Z",
+    "updatedAt": "2025-07-13T18:35:00Z"
+  },
+  {
+    "id": 12,
+    "ReportId": 12,
+    "UserId": 3,
+    "content": "Silakan isi formulir surat pindah di balai RT.",
+    "createdAt": "2025-07-14T19:50:00Z",
+    "updatedAt": "2025-07-14T19:50:00Z"
+  },
+  {
+    "id": 13,
+    "ReportId": 13,
+    "UserId": 1,
+    "content": "Sudah kami laporkan ke PLN.",
+    "createdAt": "2025-07-15T20:05:00Z",
+    "updatedAt": "2025-07-15T20:05:00Z"
+  },
+  {
+    "id": 14,
+    "ReportId": 14,
+    "UserId": 2,
+    "content": "Laporan Anda sudah kami terima.",
+    "createdAt": "2025-07-16T21:20:00Z",
+    "updatedAt": "2025-07-16T21:20:00Z"
+  },
+  {
+    "id": 15,
+    "ReportId": 15,
+    "UserId": 3,
+    "content": "Kami akan cek lokasi kebocoran segera.",
+    "createdAt": "2025-07-17T22:35:00Z",
+    "updatedAt": "2025-07-17T22:35:00Z"
   }
 ]

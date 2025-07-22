@@ -10,12 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Report.belongsTo(models.Rt)
       Report.belongsTo(models.Category)
       Report.belongsTo(models.User)
       Report.hasMany(models.Comment)
-      Report.hasMany(models.ReportHistory)
-      Report.hasMany(models.FollowUp)
     }
   }
   Report.init({

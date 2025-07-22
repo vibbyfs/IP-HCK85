@@ -24,59 +24,59 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: {
-        notEmpty: true,
-        is: /^[0-9]{16}$/,
-      }
+      // validate: {
+      //   notEmpty: true,
+      //   is: /^[0-9]{16}$/,
+      // }
     },
     fullName: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [3, 100],
-      }
+      // validate: {
+      //   notEmpty: true,
+      //   len: [3, 100],
+      // }
     },
     gender: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isIn: [['Male', 'Female', 'Other']]
-      }
+      // validate: {
+      //   isIn: [['Male', 'Female', 'Other']]
+      // }
     },
     dateOfBirth: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      validate: {
-        isDate: true
-      }
+      // validate: {
+      //   isDate: true
+      // }
     },
     placeOfBirth: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: true
-      }
+      // validate: {
+      //   notEmpty: true
+      // }
     },
     religion: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isIn: [['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']]
-      }
+      // validate: {
+      //   isIn: [['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']]
+      // }
     },
     maritalStatus: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isIn: [['Single', 'Married', 'Divorced', 'Widowed']]
-      }
+      // validate: {
+      //   isIn: [['Single', 'Married', 'Divorced', 'Widowed']]
+      // }
     },
     bloodType: {
       type: DataTypes.STRING,
-      validate: {
-        isIn: [['A', 'B', 'AB', 'O']]
-      }
+      // validate: {
+      //   isIn: [['A', 'B', 'AB', 'O']]
+      // }
     },
     occupation: {
       type: DataTypes.STRING,

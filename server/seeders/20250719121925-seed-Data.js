@@ -1,6 +1,8 @@
 'use strict';
 
 const { hashPassword } = require('../helpers/bcryptjs');
+const address = require('../models/address');
+const citizen = require('../models/citizen');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -19,24 +21,10 @@ module.exports = {
     const categories = require('../data/categories.json');
     const reports = require('../data/reports.json');
     const comments = require('../data/comments.json');
-    const followups = require('../data/followups.json');
-    const reportHistories = require('../data/report_histories.json');
-    const roles = require('../data/roles.json');
-    const rts = require('../data/rts.json');
+    const transactions = require('../data/transactions.json')
+    const citizens = require('../data/citizens.json')
+    const addresses = require('../data/addresses.json')
 
-    for (const role of roles) {
-      delete role.id;
-      role.createdAt = new Date();
-      role.updatedAt = new Date();
-    }
-    await queryInterface.bulkInsert('Roles', roles);
-
-    for (const rt of rts) {
-      delete rt.id;
-      rt.createdAt = new Date();
-      rt.updatedAt = new Date();
-    }
-    await queryInterface.bulkInsert('Rts', rts);
 
     for (const user of users) {
       delete user.id;
@@ -67,19 +55,26 @@ module.exports = {
     }
     await queryInterface.bulkInsert('Comments', comments);
 
-    for (const followup of followups) {
-      delete followup.id;
-      followup.createdAt = new Date();
-      followup.updatedAt = new Date();
+    for (const transaction of transactions) {
+      delete transaction.id;
+      transaction.createdAt = new Date();
+      transaction.updatedAt = new Date();
     }
-    await queryInterface.bulkInsert('FollowUps', followups);
+    await queryInterface.bulkInsert('Transactions', transactions);
 
-    for (const reportHistory of reportHistories) {
-      delete reportHistory.id;
-      reportHistory.createdAt = new Date();
-      reportHistory.updatedAt = new Date();
+    for (const citizen of citizens) {
+      delete citizen.id;
+      citizen.createdAt = new Date();
+      citizen.updatedAt = new Date();
     }
-    await queryInterface.bulkInsert('ReportHistories', reportHistories);
+    await queryInterface.bulkInsert('Citizens', citizens);
+
+    for (const address of addresses) {
+      delete address.id;
+      address.createdAt = new Date();
+      address.updatedAt = new Date();
+    }
+    await queryInterface.bulkInsert('Addresses', addresses);
 
   },
 
@@ -91,13 +86,12 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
+    await queryInterface.bulkDelete('Addresses', null, { truncate: true, restartIdentity: true, cascade: true });
+    await queryInterface.bulkDelete('Citizens', null, { truncate: true, restartIdentity: true, cascade: true });
+    await queryInterface.bulkDelete('Transactions', null, { truncate: true, restartIdentity: true, cascade: true });
     await queryInterface.bulkDelete('Comments', null, { truncate: true, restartIdentity: true, cascade: true });
-    await queryInterface.bulkDelete('FollowUps', null, { truncate: true, restartIdentity: true, cascade: true });
-    await queryInterface.bulkDelete('ReportHistories', null, { truncate: true, restartIdentity: true, cascade: true });
     await queryInterface.bulkDelete('Reports', null, { truncate: true, restartIdentity: true, cascade: true });
     await queryInterface.bulkDelete('Categories', null, { truncate: true, restartIdentity: true, cascade: true });
     await queryInterface.bulkDelete('Users', null, { truncate: true, restartIdentity: true, cascade: true });
-    await queryInterface.bulkDelete('Roles', null, { truncate: true, restartIdentity: true, cascade: true });
-    await queryInterface.bulkDelete('Rts', null, { truncate: true, restartIdentity: true, cascade: true });
   }
 };

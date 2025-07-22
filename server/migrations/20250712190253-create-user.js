@@ -27,22 +27,8 @@ module.exports = {
         allowNull: true,
         unique: true
       },
-      RoleId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Roles',
-          key: 'id'
-        }
-      },
-      RtId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'Rts',
-          key: 'id'
-        }
-      },
+     
+     
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

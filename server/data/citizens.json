@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "UserId": 1,
+    "nationalId": "3171010101010001",
+    "fullName": "Pak RT",
+    "gender": "L",
+    "dateOfBirth": "1980-05-10",
+    "placeOfBirth": "Jakarta",
+    "religion": "Islam",
+    "maritalStatus": "Menikah",
+    "bloodType": "O",
+    "occupation": "Ketua RT",
+    "nationality": "Indonesia",
+    "AddressId": 1,
+    "createdAt": "2025-07-03T08:00:00Z",
+    "updatedAt": "2025-07-03T08:00:00Z"
+  },
+  {
+    "id": 2,
+    "UserId": 2,
+    "nationalId": "3171010101010002",
+    "fullName": "Warga Budi",
+    "gender": "L",
+    "dateOfBirth": "1995-08-22",
+    "placeOfBirth": "Depok",
+    "religion": "Kristen",
+    "maritalStatus": "Belum Menikah",
+    "bloodType": "A",
+    "occupation": "Karyawan Swasta",
+    "nationality": "Indonesia",
+    "AddressId": 2,
+    "createdAt": "2025-07-04T09:15:00Z",
+    "updatedAt": "2025-07-04T09:15:00Z"
+  },
+  {
+    "id": 3,
+    "UserId": 3,
+    "nationalId": "3171010101010003",
+    "fullName": "Ibu RW",
+    "gender": "P",
+    "dateOfBirth": "1975-03-18",
+    "placeOfBirth": "Bogor",
+    "religion": "Islam",
+    "maritalStatus": "Menikah",
+    "bloodType": "B",
+    "occupation": "Ketua RW",
+    "nationality": "Indonesia",
+    "AddressId": 3,
+    "createdAt": "2025-07-05T10:30:00Z",
+    "updatedAt": "2025-07-05T10:30:00Z"
+  }
+]

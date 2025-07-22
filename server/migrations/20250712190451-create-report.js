@@ -37,19 +37,8 @@ module.exports = {
           key: 'id'
         }
       },
-      RtId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Rts',
-          key: 'id'
-        }
-      },
-      status: {
-        type: Sequelize.ENUM('Pending', 'In Progress', 'Completed'),
-        allowNull: false,
-        defaultValue: 'Pending'
-      },
+     
+      
       latitude: {
         type: Sequelize.DECIMAL,
         allowNull: true

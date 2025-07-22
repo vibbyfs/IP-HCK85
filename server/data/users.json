@@ -4,25 +4,26 @@
     "name": "Pak RT",
     "email": "rt@mail.com",
     "password": "password",
-    "RtId": 1,
-    "RoleId": 1,
     "GoogleId": null,
-    "isApproved": true,
-    "approvedAt": "2025-07-19T10:05:00Z",
-    "createdAt": "2025-07-19T10:00:00Z",
-    "updatedAt": "2025-07-19T10:05:00Z"
+    "createdAt": "2025-07-03T08:15:00Z",
+    "updatedAt": "2025-07-03T08:45:00Z"
   },
   {
     "id": 2,
     "name": "Warga",
     "email": "warga@mail.com",
     "password": "password",
-    "RtId": 1,
-    "RoleId": 2,
     "GoogleId": null,
-    "isApproved": false,
-    "approvedAt": null,
-    "createdAt": "2025-07-19T10:10:00Z",
-    "updatedAt": "2025-07-19T10:10:00Z"
+    "createdAt": "2025-07-09T10:00:00Z",
+    "updatedAt": "2025-07-09T10:30:00Z"
+  },
+  {
+    "id": 3,
+    "name": "Ibu RW",
+    "email": "rw@mail.com",
+    "password": "password",
+    "GoogleId": null,
+    "createdAt": "2025-07-14T09:00:00Z",
+    "updatedAt": "2025-07-14T09:30:00Z"
   }
 ]

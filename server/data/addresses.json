@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "provinceId": 31,
+    "provinceName": "DKI Jakarta",
+    "regencyId": 3171,
+    "regencyName": "Jakarta Selatan",
+    "districtId": 3171010,
+    "districtName": "Kebayoran Baru",
+    "villageId": 3171010001,
+    "villageName": "Gandaria Utara",
+    "rt": "01",
+    "rw": "05",
+    "street": "Jl. Melati No. 10",
+    "postalCode": "12140",
+    "createdAt": "2025-07-03T08:00:00Z",
+    "updatedAt": "2025-07-03T08:00:00Z"
+  },
+  {
+    "id": 2,
+    "provinceId": 32,
+    "provinceName": "Jawa Barat",
+    "regencyId": 3201,
+    "regencyName": "Depok",
+    "districtId": 3201010,
+    "districtName": "Beji",
+    "villageId": 3201010002,
+    "villageName": "Beji Timur",
+    "rt": "02",
+    "rw": "06",
+    "street": "Jl. Kenanga No. 5",
+    "postalCode": "16421",
+    "createdAt": "2025-07-04T09:15:00Z",
+    "updatedAt": "2025-07-04T09:15:00Z"
+  },
+  {
+    "id": 3,
+    "provinceId": 33,
+    "provinceName": "Jawa Tengah",
+    "regencyId": 3301,
+    "regencyName": "Bogor",
+    "districtId": 3301010,
+    "districtName": "Cibinong",
+    "villageId": 3301010003,
+    "villageName": "Ciriung",
+    "rt": "03",
+    "rw": "07",
+    "street": "Jl. Mawar No. 3",
+    "postalCode": "16911",
+    "createdAt": "2025-07-05T10:30:00Z",
+    "updatedAt": "2025-07-05T10:30:00Z"
+  }
+]

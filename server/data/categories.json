@@ -2,13 +2,49 @@
   {
     "id": 1,
     "name": "Kebersihan",
-    "createdAt": "2025-07-19T10:00:00Z",
-    "updatedAt": "2025-07-19T10:00:00Z"
+    "createdAt": "2025-07-03T08:12:00Z",
+    "updatedAt": "2025-07-03T08:12:00Z"
   },
   {
     "id": 2,
     "name": "Keamanan",
-    "createdAt": "2025-07-19T10:00:00Z",
-    "updatedAt": "2025-07-19T10:00:00Z"
+    "createdAt": "2025-07-07T14:45:00Z",
+    "updatedAt": "2025-07-07T14:45:00Z"
+  },
+  {
+    "id": 3,
+    "name": "Fasilitas Umum",
+    "createdAt": "2025-07-12T10:30:00Z",
+    "updatedAt": "2025-07-12T10:30:00Z"
+  },
+  {
+    "id": 4,
+    "name": "Kesehatan",
+    "createdAt": "2025-07-05T16:20:00Z",
+    "updatedAt": "2025-07-05T16:20:00Z"
+  },
+  {
+    "id": 5,
+    "name": "Sosial",
+    "createdAt": "2025-07-09T09:00:00Z",
+    "updatedAt": "2025-07-09T09:00:00Z"
+  },
+  {
+    "id": 6,
+    "name": "Administrasi",
+    "createdAt": "2025-07-15T11:10:00Z",
+    "updatedAt": "2025-07-15T11:10:00Z"
+  },
+  {
+    "id": 7,
+    "name": "Gangguan Listrik / Air",
+    "createdAt": "2025-07-18T07:45:00Z",
+    "updatedAt": "2025-07-18T07:45:00Z"
+  },
+  {
+    "id": 8,
+    "name": "Lain-lain",
+    "createdAt": "2025-07-06T13:25:00Z",
+    "updatedAt": "2025-07-06T13:25:00Z"
   }
 ]
