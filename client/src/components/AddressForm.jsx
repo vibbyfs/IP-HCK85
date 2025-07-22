@@ -12,7 +12,7 @@ export default function AddressForm({ address, setAddress }) {
           onChange={(e) =>
             setAddress((a) => ({ ...a, provinceName: e.target.value }))
           }
-          
+          required
         />
       </div>
       <div>
@@ -24,7 +24,7 @@ export default function AddressForm({ address, setAddress }) {
           onChange={(e) =>
             setAddress((a) => ({ ...a, regencyName: e.target.value }))
           }
-          
+          required
         />
       </div>
       <div>
@@ -36,7 +36,7 @@ export default function AddressForm({ address, setAddress }) {
           onChange={(e) =>
             setAddress((a) => ({ ...a, districtName: e.target.value }))
           }
-          
+          required
         />
       </div>
       <div>
@@ -48,7 +48,7 @@ export default function AddressForm({ address, setAddress }) {
           onChange={(e) =>
             setAddress((a) => ({ ...a, villageName: e.target.value }))
           }
-          
+          required
         />
       </div>
       <div>
@@ -58,7 +58,7 @@ export default function AddressForm({ address, setAddress }) {
           name="rt"
           value={address.rt}
           onChange={(e) => setAddress((a) => ({ ...a, rt: e.target.value }))}
-          
+          required
         />
       </div>
       <div>
@@ -68,7 +68,7 @@ export default function AddressForm({ address, setAddress }) {
           name="rw"
           value={address.rw}
           onChange={(e) => setAddress((a) => ({ ...a, rw: e.target.value }))}
-          
+          required
         />
       </div>
       <div className="md:col-span-2">
@@ -82,7 +82,7 @@ export default function AddressForm({ address, setAddress }) {
           onChange={(e) =>
             setAddress((a) => ({ ...a, street: e.target.value }))
           }
-          
+          required
         />
       </div>
       <div className="md:col-span-2">

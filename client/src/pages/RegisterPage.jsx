@@ -18,8 +18,10 @@ export default function RegisterPage() {
         password,
       });
 
-      navigate("/login");
-      toast.success("Registration successful. Please wait for admin approval.");
+      navigate("/form");
+      toast.success(
+        "Registration successful. Please fill out your personal data."
+      );
     } catch (err) {
       console.log("ERROR REGISTER", err);
       const msgErr = err.response?.data?.message || "Something went wrong.";

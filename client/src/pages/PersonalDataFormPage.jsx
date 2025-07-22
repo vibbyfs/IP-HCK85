@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import AddressForm from "../components/AddressForm";
+import axios from "axios";
+import http from "../lib/http";
 
 export default function PersonalDataFormPage() {
   const [step, setStep] = useState(1);
   const [citizen, setCitizen] = useState({
-    NationalId: "1321343212345678",
+    NationalId: "21234567890123456",
     fullName: "John Doe",
     gender: "L",
     dateOfBirth: "2000-01-01",
@@ -13,23 +15,42 @@ export default function PersonalDataFormPage() {
     religion: "Islam",
     maritalStatus: "Belum Menikah",
     bloodType: "O",
-    occupation: "Software Engineer",
+    occupation: "Pelajar",
     nationality: "Indonesia",
   });
   const [address, setAddress] = useState({
     provinceName: "DKI Jakarta",
-    regencyName: "Jakarta Pusat",
-    districtName: "Gambir",
-    villageName: "Kebon Kelapa",
+    regencyName: "Jakarta Selatan",
+    districtName: "Kebayoran Baru",
+    villageName: "Kebayoran Lama",
     rt: "01",
     rw: "05",
-    street: "Jln. Merdeka No. 1",
-    postalCode: "17000",
+    street: "Jln. Sudirman No. 1",
+    postalCode: "11123",
   });
 
   const [loading, setLoading] = useState(false);
   const [notif, setNotif] = useState("");
   const navigate = useNavigate();
+
+  // Langsung tulis function API di sini
+  const createAddress = async (data) => {
+    const res = await http.post("/addresses/add", data, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return res.data.address; // pastikan backend balas { address: { id, ... } }
+  };
+
+  const createCitizen = async (data) => {
+    const res = await http.post("/citizens/add", data, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    return res.data.citizen;
+  };
 
   const handleChangeCitizen = (e) =>
     setCitizen({ ...citizen, [e.target.name]: e.target.value });
@@ -56,6 +77,7 @@ export default function PersonalDataFormPage() {
     e.preventDefault();
     setNotif("");
     setLoading(true);
+
     if (
       !address.provinceName ||
       !address.regencyName ||
@@ -69,9 +91,13 @@ export default function PersonalDataFormPage() {
       setLoading(false);
       return;
     }
+
     try {
-      // Submit citizen & address sekaligus (asumsi backend mendukung)
-      await createCitizen({ ...citizen, ...address });
+      // 1. Simpan alamat, dapatkan id address
+      const addressRes = await createAddress(address);
+      const AddressId = addressRes.id; // backend balas { address: { id, ... } }
+      // 2. Simpan data citizen, kirim AddressId
+      await createCitizen({ ...citizen, AddressId });
       setNotif("Data berhasil disimpan! Akun Anda menunggu approval admin RT.");
       setTimeout(() => navigate("/"), 2000);
     } catch (err) {
@@ -104,6 +130,7 @@ export default function PersonalDataFormPage() {
                 value={citizen.NationalId}
                 onChange={handleChangeCitizen}
                 className="input"
+                required
               />
             </div>
             <div>
@@ -113,6 +140,7 @@ export default function PersonalDataFormPage() {
                 value={citizen.fullName}
                 onChange={handleChangeCitizen}
                 className="input"
+                required
               />
             </div>
             <div>
@@ -124,6 +152,7 @@ export default function PersonalDataFormPage() {
                 value={citizen.gender}
                 onChange={handleChangeCitizen}
                 className="input"
+                required
               >
                 <option value="">Pilih</option>
                 <option value="L">Laki-laki</option>
@@ -137,6 +166,7 @@ export default function PersonalDataFormPage() {
                 value={citizen.placeOfBirth}
                 onChange={handleChangeCitizen}
                 className="input"
+                required
               />
             </div>
             <div>
@@ -149,6 +179,7 @@ export default function PersonalDataFormPage() {
                 value={citizen.dateOfBirth}
                 onChange={handleChangeCitizen}
                 className="input"
+                required
               />
             </div>
             <div>
