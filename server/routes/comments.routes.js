@@ -4,9 +4,10 @@ const authentication = require('../middleware/authentication');
 
 const commentRouter = express.Router({ mergeParams: true });
 
-commentRouter.use(authentication)
+commentRouter.use(authentication);
+
+commentRouter.get('/', commentsController.listComments)
 commentRouter.post('/add', commentsController.createComment);
-commentRouter.get('/', commentsController.listComments);
-commentRouter.delete('/:commentId', commentsController.deleteComment);
+commentRouter.delete('/:commentId', commentsController.deleteComment)
 
 module.exports = commentRouter;
