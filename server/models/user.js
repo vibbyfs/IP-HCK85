@@ -56,14 +56,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       GoogleId: DataTypes.STRING,
-      RoleId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      RtId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
     },
     {
       sequelize,

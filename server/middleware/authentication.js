@@ -21,13 +21,13 @@ async function authentication(req, res, next) {
         const result = verifyToken(valueToken)
 
         // console.log("RESULT AUTENTICATION", result);
-        
-        const user = await User.findByPk(result.UserId)
+
+        const user = await User.findByPk(result.id)
         if (!user) {
             res.status(401).json({ message: 'Invalid token' })
         }
 
-        req.user = { id: user.id, email: user.email, RoleId: user.RoleId, RtId: user.RtId }
+        req.user = { id: user.id }
 
         next()
     } catch (err) {

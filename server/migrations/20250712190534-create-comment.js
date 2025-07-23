@@ -15,7 +15,8 @@ module.exports = {
         references: {
           model: 'Reports',
           key: 'id'
-        }
+        },
+        onDelete: 'cascade'
       },
       UserId: {
         type: Sequelize.INTEGER,
@@ -23,7 +24,8 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id'
-        }
+        },
+        onDelete: 'cascade'
       },
       content: {
         type: Sequelize.TEXT,

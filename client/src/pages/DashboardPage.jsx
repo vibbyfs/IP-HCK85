@@ -1,48 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarDashboard from "../components/SideBarDashboard";
+import RightSidebar from "../components/RightSidebar";
 import ReportCard from "../components/ReportCard";
+import http from "../lib/http";
+import toast from "react-hot-toast";
 
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [reports, setReports] = useState([]);
 
-  const reports = [
-    {
-      username: "Budi",
-      avatar: "https://ui-avatars.com/api/?name=Budi",
-      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-      title: "Lampu Jalan Mati",
-      description: "Lampu jalan depan rumah mati sudah 2 hari.",
-      createdAt: "2024-07-19T10:23:00Z",
-      comments: [
-        { user: "Andi", text: "Sudah dilapor ke pak RT?" },
-        { user: "Siti", text: "Saya juga lihat, semoga cepat diperbaiki." },
-        { user: "Dewi", text: "Ayo gotong royong besok pagi!" },
-        { user: "Bambang", text: "Siap bantu tenaga!" },
-      ],
-    },
-    {
-      username: "Siti",
-      avatar: "https://ui-avatars.com/api/?name=Siti",
-      image: "",
-      title: "Sampah Menumpuk",
-      description: "Sampah di dekat pos ronda menumpuk, minta bantuan warga.",
-      createdAt: "2024-07-20T07:12:00Z",
-      comments: [{ user: "Budi", text: "Saya siap membantu besok." }],
-    },
-  ];
+  async function fetchDataReports() {
+    try {
+      const response = await http.get("/reports", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      });
+      setReports(response.data);
+    } catch (err) {
+      const msgErr = err?.response?.data?.message || "Something went wrong.";
+      toast.dismiss();
+      toast.error(msgErr);
+    }
+  }
+
+  async function handleDelete(id) {
+    try {
+      await http.delete(`/reports/${id}/delete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      });
+      setReports((prev) => prev.filter((r) => r.id !== id));
+      toast.success("Report berhasil dihapus");
+    } catch (err) {
+      const msgErr = err?.response?.data?.message || "Something went wrong.";
+      toast.dismiss();
+      toast.error(msgErr);
+    }
+  }
+
+  useEffect(() => {
+    fetchDataReports();
+  }, []);
 
   return (
-    <section className="bg-gray-50 min-h-screen">
-      {/* SIDEBAR DESKTOP */}
+    <section className="bg-gray-50 min-h-screen relative">
+      {/* SIDEBAR KIRI (Desktop) */}
       <div className="hidden md:block fixed top-0 left-0 h-full w-72 bg-white shadow-xl p-6 z-10">
         <SidebarDashboard />
       </div>
 
-      {/* HEADER FIXED (Mobile & Desktop) */}
+      {/* HEADER FIXED */}
       <div className="fixed top-0 left-0 right-0 z-30 bg-gray-50 border-b shadow-sm md:ml-72 md:pl-4 h-24 flex items-center">
         {/* Hamburger untuk mobile */}
         <button
-          className="mr-2 md:hidden p-2 rounded-full bg-white shadow"
+          className="ml-2 mr-2 md:hidden p-3 rounded-full bg-white shadow"
           onClick={() => setSidebarOpen(true)}
           aria-label="Open sidebar"
         >
@@ -63,19 +76,31 @@ export default function DashboardPage() {
         {/* Judul + greeting */}
         <div className="w-full">
           <div className="max-w-4xl mx-auto px-2 md:px-0">
-            
-            <div className="bg-white rounded-xl shadow p-3 md:p-4 mt-1">
+            <div className="bg-white rounded-xl shadow p-3 md:p-4 mt-1 flex justify-center items-center">
               Selamat datang di Dashboard!
             </div>
           </div>
         </div>
       </div>
 
-      {/* MAIN CONTENT (mulai di bawah header) */}
-      <div className="md:ml-72 md:pl-4 max-w-4xl mx-auto px-2 md:px-0 pt-28 md:pt-36">
-        {reports.map((report, idx) => (
-          <ReportCard key={idx} {...report} />
-        ))}
+      {/* MAIN CONTENT */}
+      <div className="md:ml-72 md:mr-96 md:pl-4 md:pr-4 max-w-4xl mx-auto px-2 md:px-0 pt-36 flex flex-col md:block">
+        {/* RightSidebar: tampil atas di mobile, hilang di desktop */}
+        <div className="block md:hidden mb-4">
+          <RightSidebar mobile />
+        </div>
+
+        {/* Report Cards */}
+        <div>
+          {reports.map((report, i) => (
+            <ReportCard key={i} {...report} onDelete={handleDelete} />
+          ))}
+        </div>
+      </div>
+
+      {/* RIGHT SIDEBAR: Desktop (fixed kanan) */}
+      <div className="hidden md:block">
+        <RightSidebar />
       </div>
 
       {/* SIDEBAR DRAWER (Mobile) */}
@@ -112,7 +137,6 @@ export default function DashboardPage() {
               />
             </svg>
           </button>
-          <SidebarDashboard />
         </div>
       </div>
     </section>

@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     imageUrl: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true,
       validate: {
         isUrl: {
@@ -49,11 +49,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    status: {
-      type: DataTypes.ENUM('Pending', 'In Progress', 'Completed'),
-      allowNull: false,
-      defaultValue: 'Pending'
-    },
+
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -62,10 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    RtId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
+
     latitude: {
       type: DataTypes.STRING,
       allowNull: true,

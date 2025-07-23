@@ -7,6 +7,7 @@ const commentRouter = require('./comments.routes');
 const transactionRouter = require('./transactions.routes');
 const citizensRouter = require('./citizens.routes');
 const addressRouter = require('./address.routes');
+const categoriesRouter = require('./categories.routes')
 
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
@@ -15,3 +16,4 @@ app.use('/comments', commentRouter);
 app.use('/citizens', citizensRouter);
 app.use('/transactions', transactionRouter);
 app.use('/addresses', addressRouter);
+app.use('/categories', categoriesRouter);

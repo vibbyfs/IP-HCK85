@@ -49,10 +49,7 @@ export default function MyProfilePage() {
         </button>
         <div className="w-full">
           <div className="max-w-4xl mx-auto px-2 md:px-0">
-            <h2 className="text-lg md:text-2xl font-bold mb-1 pl-1 md:pl-0">
-              Profil Saya
-            </h2>
-            <div className="bg-white rounded-xl shadow p-3 md:p-4 mt-1">
+            <div className="bg-white rounded-xl shadow p-3 md:p-4 mt-1 flex justify-center items-center">
               Data diri dan alamat lengkap Anda
             </div>
           </div>

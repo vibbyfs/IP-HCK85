@@ -1,3 +1,4 @@
+import MarqueeText from "../components/MarqueeText";
 import Navbar from "../components/Navbar";
 
 export default function LandingPage() {
@@ -7,6 +8,7 @@ export default function LandingPage() {
         <section className="hero-gradient text-white pb-16 md:pb-24">
           <div className="container mx-auto px-4 pt-12">
             <div className="flex flex-col md:flex-row items-center">
+     
               <div className="md:w-1/2 mb-8 md:mb-0">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
                   Laporkan Masalah Lingkungan RT Lebih Mudah & Cepat

@@ -47,26 +47,7 @@ class TransactionController {
         }
     };
 
-    static async updateStatus(req, res) {
-        try {
-            const { id } = req.params;
-            const { status } = req.body;
 
-            const transaction = await Transaction.findByPk(id);
-            if (!transaction) {
-                return res.status(404).json({ message: 'Transaction not found' });
-
-            }
-
-            transaction.status = status;
-            await transaction.save();
-
-            res.json({ message: `Transaction status updated to ${status}.`, transaction });
-        } catch (err) {
-            console.log("ERROR UPDATE TRANSACTION STATUS", err);
-            res.status(500).json({ message: 'Internal server error' });
-        }
-    };
 
 }
 

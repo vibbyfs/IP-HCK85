@@ -7,6 +7,5 @@ const addressRouter = express.Router();
 
 addressRouter.use(authentication)
 addressRouter.post('/add', addressController.createAddress);
-// addressRouter.put('/:id', addressController.updateAddress);
 
 module.exports = addressRouter;

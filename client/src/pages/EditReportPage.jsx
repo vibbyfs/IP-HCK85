@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import FormReport from "../components/FormReport";
 
-export default function CreateReportPage() {
+export default function EditReportPage() {
   return (
     <>
-      <FormReport type="create" />
+      <FormReport type='edit' />
     </>
   );
 }

@@ -9,8 +9,7 @@ class UserController {
             // console.log("REQ.USER", req.user);
 
             const user = await User.findByPk(id, {
-                attributes: ['id', 'name', 'email', 'isApproved', 'RtId', 'RoleId'],
-                include: [{ model: Role, attributes: ['name'] }]
+                attributes: ['id', 'name', 'email'],
             });
 
             // console.log("USER PROFILE", user);

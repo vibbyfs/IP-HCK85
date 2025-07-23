@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import MarqueeText from "./MarqueeText";
 
 const links = [
   { href: "#beranda", label: "Beranda" },
@@ -13,6 +14,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow">
+      <MarqueeText>Info: Iuran jatuh tempo tanggal 10 tiap bulan!</MarqueeText>
       <nav className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         <div className="text-2xl font-bold text-blue-600">RT Care</div>
 

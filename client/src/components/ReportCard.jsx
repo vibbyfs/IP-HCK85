@@ -1,26 +1,44 @@
 import React, { useState } from "react";
+import { Link, useParams } from "react-router";
 
 export default function ReportCard({
   username = "Anonim",
-  avatar = "https://ui-avatars.com/api/?name=Anonim",
-  image,
+  avatar = "https://ui-avatars.com/api/?name=" + (username || "Anonim"),
   title,
   description,
+  imageUrl,
   createdAt,
   comments = [],
+  onDelete,
+  id,
 }) {
   const [showAllComments, setShowAllComments] = useState(false);
-
   const visibleComments = showAllComments ? comments : comments.slice(0, 3);
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-4 max-w-xl mx-auto mb-6">
+    <div className="bg-white rounded-xl shadow-md p-4 max-w-xl mx-auto mb-6 relative">
+      {/* Tombol Edit & Delete (pojok kanan atas, always show) */}
+      <div className="absolute top-2 right-3 flex gap-2">
+        <Link to={`/reports/${id}/edit`}>
+          <button className="bg-yellow-50 text-yellow-600 hover:bg-yellow-100 rounded px-3 py-1 text-xs font-bold shadow">
+            Edit
+          </button>
+        </Link>
+
+        <button
+          onClick={() => onDelete(id)}
+          className="bg-red-50 text-red-600 hover:bg-red-100 rounded px-3 py-1 text-xs font-bold shadow"
+        >
+          Delete
+        </button>
+      </div>
+
       {/* Header User */}
       <div className="flex items-center mb-3">
         <img
           src={avatar}
           alt={username}
-          className="w-10 h-10 rounded-full mr-3"
+          className="w-10 h-10 rounded-full mr-3 bg-gray-100"
         />
         <div>
           <div className="font-semibold text-gray-800">{username}</div>
@@ -30,10 +48,10 @@ export default function ReportCard({
         </div>
       </div>
       {/* Image */}
-      {image && (
+      {imageUrl && (
         <div className="mb-3 rounded-xl overflow-hidden">
           <img
-            src={image}
+            src={imageUrl}
             alt={title}
             className="w-full object-cover max-h-80"
           />

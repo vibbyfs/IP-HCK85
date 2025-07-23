@@ -12,16 +12,10 @@ class AuthController {
             if (user) {
                 return res.status(400).json({ message: 'Email already exists.' });
             }
-
-            const wargaRole = await Role.findOne({ where: { name: 'Warga' } });
-
             await User.create({
                 name,
                 email,
                 password,
-                RoleId: wargaRole.id,
-                isApproved: false,
-                approvedAt: null
             });
 
             return res.status(201).json({
@@ -50,7 +44,6 @@ class AuthController {
 
             const user = await User.findOne({
                 where: { email },
-                include: [{ model: Role }]
             });
 
             if (!user) {
@@ -67,7 +60,7 @@ class AuthController {
             }
 
             const access_token = signToken(
-                { UserId: user.id, role: user.Role.name, RtId: user.RtId }
+                { id: user.id }
             );
 
             res.status(200).json({
@@ -76,8 +69,6 @@ class AuthController {
                     id: user.id,
                     name: user.name,
                     email: user.email,
-                    role: user.Role.name,
-                    RtId: user.RtId
                 }
             });
 

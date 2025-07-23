@@ -10,7 +10,7 @@ class CommentsController {
 
             const comment = await Comment.create({
                 ReportId,
-                UserId: req.user.UserId,
+                UserId: req.user.id,
                 content
             });
 
@@ -29,7 +29,7 @@ class CommentsController {
             const comments = await Comment.findAll({
                 where: { ReportId },
                 order: [['createdAt', 'ASC']],
-                include: [{ model: User, attributes: ['id', 'name', 'RoleId'] }]
+                include: [{ model: User, attributes: ['id', 'name'] }]
             });
 
             res.json(comments);
@@ -46,10 +46,6 @@ class CommentsController {
             const comment = await Comment.findByPk(commentId);
             if (!comment) {
                 return res.status(404).json({ message: 'Comment not found' });
-            }
-
-            if (comment.UserId !== req.user.UserId && req.user.RoleId !== 'RT') {
-                return res.status(403).json({ message: 'Access denied' });
             }
 
             await comment.destroy();

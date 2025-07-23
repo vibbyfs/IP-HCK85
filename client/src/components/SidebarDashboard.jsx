@@ -29,7 +29,7 @@ export default function SidebarDashboard() {
           Laporan Warga
         </Link>
         <Link
-          to="/form-reports"
+          to="/reports/create"
           className="block py-2 px-4 hover:bg-gray-100 rounded-lg"
         >
           Buat Laporan
@@ -44,7 +44,7 @@ export default function SidebarDashboard() {
           to="/payment"
           className="block py-2 px-4 hover:bg-gray-100 rounded-lg"
         >
-          Pembayaranan
+          Pembayaran
         </Link>
         <button
           onClick={handleLogout}

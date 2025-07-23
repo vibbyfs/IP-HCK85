@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false
       },
       imageUrl: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: true
       },
       UserId: {
@@ -37,8 +37,6 @@ module.exports = {
           key: 'id'
         }
       },
-     
-      
       latitude: {
         type: Sequelize.DECIMAL,
         allowNull: true

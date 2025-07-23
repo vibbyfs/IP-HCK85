@@ -63,10 +63,7 @@ export default function PaymentPage() {
         </button>
         <div className="w-full">
           <div className="max-w-4xl mx-auto px-2 md:px-0">
-            <h2 className="text-lg md:text-2xl font-bold mb-1 pl-1 md:pl-0">
-              Pembayaran Iuran Bulanan
-            </h2>
-            <div className="bg-white rounded-xl shadow p-3 md:p-4 mt-1">
+            <div className="bg-white rounded-xl shadow p-3 md:p-4 mt-1 flex justify-center items-center">
               Riwayat pembayaran iuran warga Anda
             </div>
           </div>
@@ -74,7 +71,7 @@ export default function PaymentPage() {
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="md:ml-72 md:pl-4 max-w-4xl mx-auto px-2 md:px-0 pt-28 md:pt-36">
+      <div className="md:ml-72 md:pl-4 max-w-4xl mx-auto px-2 md:px-0 pt-28 md:pt-36 w-full">
         <div className="bg-white rounded-xl shadow p-4 md:p-8 max-w-2xl mx-auto">
           <div className="mb-6 flex items-center justify-between">
             <div className="font-bold text-lg md:text-xl">
