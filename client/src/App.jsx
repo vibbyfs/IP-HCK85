@@ -12,6 +12,8 @@ import AnnouncementsPage from "./pages/AnnouncementPage";
 import PaymentPage from "./pages/PaymentPage";
 import CreateReportPage from "./pages/CreateReportPage";
 import EditReportPage from "./pages/EditReportPage";
+import ReportAudioUploadPage from "./pages/ReportAudioPage";
+import ConfirmAudioReportPage from "./pages/ConfirmAudioReportPage";
 
 function App() {
   function MainLayout() {
@@ -41,6 +43,8 @@ function App() {
 
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/reports/create" element={<CreateReportPage />} />
+          <Route path="/reports/audio" element={<ReportAudioUploadPage />} />
+          <Route path="/reports/confirm" element={<ConfirmAudioReportPage />} />
           <Route path="/reports/:id/edit" element={<EditReportPage />} />
           <Route path="/my-profile" element={<MyProfilePage />} />
           <Route path="/payment" element={<PaymentPage />} />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import http from "../lib/http";
 
 export default function AnnouncementsPage() {
   const [announcements, setAnnouncements] = useState([]);
@@ -9,7 +10,7 @@ export default function AnnouncementsPage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:5000/api/announcements", {
+        const res = await http.get("/announcements", {
           headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
         });
         setAnnouncements(res.data);
@@ -41,7 +42,6 @@ export default function AnnouncementsPage() {
           </div>
         )}
       </div>
-      <BottomNav />
     </div>
   );
 }

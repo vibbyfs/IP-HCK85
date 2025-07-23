@@ -1,129 +1,85 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SidebarDashboard from "../components/SideBarDashboard";
 import http from "../lib/http";
 import { toast } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router";
-import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router";
 
-export default function FormReport(props) {
-  const { type } = props;
+export default function ConfirmAudioReportPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [CategoryId, setCategoryId] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (!state) navigate("/dashboard");
+  }, [state, navigate]);
+
+  const [title, setTitle] = useState(state?.title || "");
+  const [description, setDescription] = useState(state?.description || "");
+  const [categoryName, setCategoryName] = useState(state?.category || "");
+  const [CategoryId, setCategoryId] = useState("");
+
+  useEffect(() => {
+    async function fetchDataCategories() {
+      try {
+        const response = await http.get("/categories", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
+        setCategories(response.data);
+
+        const matched = response.data.find(
+          (cat) =>
+            cat.name.toLowerCase() === (state?.category || "").toLowerCase()
+        );
+        if (matched) setCategoryId(matched.id);
+      } catch (err) {
+        toast.error("Gagal ambil data kategori.");
+      }
+    }
+    fetchDataCategories();
+  }, []);
+
+  const handleSelectCategory = (e) => {
+    setCategoryId(e.target.value);
+    const picked = categories.find((cat) => String(cat.id) === e.target.value);
+    setCategoryName(picked ? picked.name : "");
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
-      if (type === "create") {
-        await http.post(
-          "/reports/add",
-          {
-            title,
-            description,
-            CategoryId,
-            imageUrl,
+      await http.post(
+        "/reports/add",
+        {
+          title,
+          description,
+          CategoryId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-          }
-        );
-
-        toast.success("Report successfully");
-      } else {
-        await http.put(
-          `/reports/${id}/update`,
-          {
-            title,
-            description,
-            CategoryId,
-            imageUrl,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-          }
-        );
-        toast.success("Updated successfully");
-      }
-
+        }
+      );
+      toast.success("Laporan berhasil dikirim!");
       navigate("/dashboard");
-
-      setTitle("");
-      setDescription("");
-      setCategoryId("");
-      setImageUrl("");
     } catch (err) {
-      console.log("ERROR CREATE RESPORTS", err);
-      const msgErr = err.response?.data?.message || "Something went wrong.";
-      toast.dismiss();
-      toast.error(msgErr);
+      toast.error(err.response?.data?.message || "Gagal mengirim laporan.");
     }
   }
-
-  async function fetchDataReports() {
-    try {
-      const response = await http.get(`/reports/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      });
-
-      const newReport = response.data;
-
-      setTitle(newReport.title);
-      setDescription(newReport.description);
-      setCategoryId(newReport.CategoryId);
-      setImageUrl(newReport.imageUrl);
-    } catch (err) {
-      console.log("ERROR GET DATA REPORTS COMPONENT FORM");
-      const msgErr = err.response?.data?.message || "Something went wrong.";
-      toast.dismiss();
-      toast.error(msgErr);
-    }
-  }
-
-  async function fetchDataCategories() {
-    try {
-      const response = await http.get("/categories", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      });
-
-      setCategories(response.data);
-    } catch (err) {
-      console.log("ERROR FETCH DATA CATEGORIES", err);
-      const msgErr = err.response?.data?.message || "Something went wrong.";
-      toast.dismiss();
-      toast.error(msgErr);
-    }
-  }
-
-  useEffect(() => {
-    fetchDataCategories();
-
-    if (type === "edit") {
-      fetchDataReports();
-    }
-  }, [type]);
 
   return (
     <section className="bg-gray-50 min-h-screen">
+      {/* SIDEBAR DESKTOP */}
       <div className="hidden md:block fixed top-0 left-0 h-full w-72 bg-white shadow-xl p-6 z-10">
         <SidebarDashboard />
       </div>
 
+      {/* HEADER FIXED */}
       <div className="fixed top-0 left-0 right-0 z-30 bg-gray-50 border-b shadow-sm md:ml-72 md:pl-4 h-24 flex items-center">
-        {/* Hamburger untuk mobile */}
+        {/* Hamburger mobile */}
         <button
           className="mr-2 md:hidden p-2 rounded-full bg-white shadow"
           onClick={() => setSidebarOpen(true)}
@@ -143,54 +99,52 @@ export default function FormReport(props) {
             />
           </svg>
         </button>
-        {/* Judul + greeting */}
         <div className="w-full">
           <div className="max-w-4xl mx-auto px-2 md:px-0">
             <div className="bg-white rounded-xl shadow p-3 md:p-4 mt-1 flex justify-center items-center">
-              Silakan isi form laporan di bawah ini!
+              Konfirmasi Laporan dari Audio (Edit jika perlu)
             </div>
           </div>
         </div>
       </div>
 
-      {/* MAIN CONTENT (mulai di bawah header) */}
+      {/* MAIN CONTENT */}
       <div className="md:ml-72 md:pl-4 max-w-4xl mx-auto px-2 md:px-0 pt-28 md:pt-36">
         <form
           className="bg-white shadow-lg rounded-xl p-4 md:p-6 max-w-2xl mx-auto"
           onSubmit={handleSubmit}
         >
-          {/* Judul */}
           <div className="mb-4">
-            <label className="block font-semibold mb-1">Judul Laporan *</label>
+            <label className="block font-semibold mb-1">
+              Judul Laporan *
+            </label>
             <input
               className="input w-full"
               type="text"
-              name="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Judul Laporan"
+              required
             />
           </div>
-          {/* Deskripsi */}
           <div className="mb-4">
             <label className="block font-semibold mb-1">Deskripsi *</label>
             <textarea
               className="input w-full"
               rows={4}
-              name="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Jelaskan laporan kamu secara detail"
+              required
             />
           </div>
-          {/* Kategori */}
           <div className="mb-4">
             <label className="block font-semibold mb-1">Kategori *</label>
             <select
               className="input w-full"
-              name="categoryId"
               value={CategoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
+              onChange={handleSelectCategory}
+              required
             >
               <option value="">Pilih Kategori</option>
               {categories.map((cat) => (
@@ -199,24 +153,18 @@ export default function FormReport(props) {
                 </option>
               ))}
             </select>
-          </div>
-          {/* Gambar */}
-          <div className="mb-4">
-            <label className="block font-semibold mb-1">URL Gambar</label>
-            <input
-              className="input w-full"
-              type="text"
-              name="imageUrl"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="Masukkan URL gambar (opsional)"
-            />
+            {/* Untuk info hasil ekstrak kategori */}
+            {categoryName && (
+              <div className="text-xs mt-1 text-gray-500">
+                Kategori dari audio: <span className="font-bold">{categoryName}</span>
+              </div>
+            )}
           </div>
           <button
             type="submit"
             className="w-full bg-blue-700 text-white font-bold py-2 px-6 rounded-xl hover:bg-blue-800 transition mb-3"
           >
-            {type === "edit" ? "Simpan Perubahan" : "Kirim Laporan"}
+            Konfirmasi & Kirim
           </button>
           <button
             type="button"
@@ -262,6 +210,7 @@ export default function FormReport(props) {
               />
             </svg>
           </button>
+          <SidebarDashboard />
         </div>
       </div>
     </section>

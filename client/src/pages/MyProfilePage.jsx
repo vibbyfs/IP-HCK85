@@ -43,8 +43,18 @@ export default function MyProfilePage() {
           onClick={() => setSidebarOpen(true)}
           aria-label="Open sidebar"
         >
-          <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
+          <svg
+            className="w-7 h-7 text-blue-600"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 8h16M4 16h16"
+            />
           </svg>
         </button>
         <div className="w-full">
@@ -83,16 +93,22 @@ export default function MyProfilePage() {
               }
             />
             <ProfileRow label="Agama" value={profile.religion} />
-            <ProfileRow label="Status Perkawinan" value={profile.maritalStatus} />
+            <ProfileRow
+              label="Status Perkawinan"
+              value={profile.maritalStatus}
+            />
             <ProfileRow label="Golongan Darah" value={profile.bloodType} />
             <ProfileRow label="Kewarganegaraan" value={profile.nationality} />
           </div>
           {/* Alamat */}
           <div className="mb-2 font-semibold text-gray-700">Alamat Lengkap</div>
           <div className="mb-4 text-gray-700 text-sm">
-            {profile.address.street}, RT {profile.address.rt}/RW {profile.address.rw},<br />
-            Kel. {profile.address.villageName}, Kec. {profile.address.districtName},<br />
-            {profile.address.regencyName}, {profile.address.provinceName} - {profile.address.postalCode}
+            {profile.address.street}, RT {profile.address.rt}/RW{" "}
+            {profile.address.rw},<br />
+            Kel. {profile.address.villageName}, Kec.{" "}
+            {profile.address.districtName},<br />
+            {profile.address.regencyName}, {profile.address.provinceName} -{" "}
+            {profile.address.postalCode}
           </div>
           <button className="bg-blue-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-blue-700">
             Edit Profil
@@ -103,7 +119,9 @@ export default function MyProfilePage() {
       {/* SIDEBAR DRAWER (Mobile) */}
       <div
         className={`fixed inset-0 z-50 bg-black bg-opacity-40 transition-opacity duration-300 ${
-          sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          sidebarOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         } md:hidden`}
         onClick={() => setSidebarOpen(false)}
       >
@@ -111,15 +129,25 @@ export default function MyProfilePage() {
           className={`fixed left-0 top-0 h-full w-72 bg-white shadow-xl p-5 transform transition-transform duration-300 ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
-          onClick={e => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
         >
           <button
             className="absolute top-3 right-3 text-gray-500"
             onClick={() => setSidebarOpen(false)}
             aria-label="Close sidebar"
           >
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
           <SidebarDashboard />
