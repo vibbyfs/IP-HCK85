@@ -1,5 +1,5 @@
 const { Transaction } = require('../models');
-
+const midtransClient = require('midtrans-client');
 
 class TransactionController {
 
@@ -35,12 +35,11 @@ class TransactionController {
         }
     };
 
-    static async getAllTransactions(req, res) {
+    static async initiateMidtransTrx(req, res) {
         try {
-            const transactions = await Transaction.findAll({
-                order: [['createdAt', 'DESC']]
-            });
-            res.json(transactions);
+           
+            
+
         } catch (err) {
             console.log("ERROR GET ALL TRANSACTIONS", err);
             res.status(500).json({ message: 'Internal server error' });

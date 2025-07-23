@@ -6,7 +6,7 @@ const transactionRoute = express.Router();
 
 transactionRoute.use(authentication)
 transactionRoute.post('/add', transactionsController.createTransaction);
+transactionRoute.post('/midtrans/initiate', transactionsController.initiateMidtransTrx);
 transactionRoute.get('/my', transactionsController.getMyTransactions);
-transactionRoute.get('/', transactionsController.getAllTransactions);
 
 module.exports = transactionRoute;

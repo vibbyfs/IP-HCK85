@@ -1,6 +1,7 @@
 const { Report } = require('../models');
 require('dotenv').config();
 const fs = require("fs");
+const path = require('path')
 const OpenAI = require("openai");
 
 
@@ -96,6 +97,7 @@ class ReportsController {
             const { id } = req.params;
             const report = await Report.findByPk(id);
 
+            // update kode
             report.imageUrl = req.file.path;
             await report.save();
 
@@ -116,7 +118,12 @@ class ReportsController {
         const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
         try {
-            const filePath = req.file.path;
+            const filePath = path.join(__dirname, '..', 'uploads', req.file.filename);
+
+            console.log(req.file);
+            console.log(filePath);
+            // console.log();
+            // throw {}
 
             const transcription = await openai.audio.transcriptions.create({
                 file: fs.createReadStream(filePath),
