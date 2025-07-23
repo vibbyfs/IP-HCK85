@@ -1,5 +1,8 @@
 const { Transaction } = require('../models');
 const midtransClient = require('midtrans-client');
+const dotenv = require('dotenv')
+dotenv.config()
+
 
 class TransactionController {
 
@@ -37,9 +40,38 @@ class TransactionController {
 
     static async initiateMidtransTrx(req, res) {
         try {
-           
-            
 
+            const orderId = Math.random().toString()
+            const amount = 30_000
+
+            let snap = new midtransClient.Snap({
+                // Set to true if you want Production Environment (accept real transaction).
+                isProduction: false,
+                serverKey: process.env.MIDTRANS_API_KEY
+            });
+
+            let parameter = {
+                "transaction_details": {
+                    "order_id": orderId,
+                    "gross_amount": amount
+                },
+                "credit_card": {
+                    "secure": true
+                }
+            };
+
+            const transaction = await snap.createTransaction(parameter)
+            let transactionToken = transaction.token
+            // console.log(transactionToken);
+
+
+            await Transaction.create({
+                UserId: req.user.id,
+                amount,
+                orderId
+            })
+
+            res.status(201).json({transactionToken})
         } catch (err) {
             console.log("ERROR GET ALL TRANSACTIONS", err);
             res.status(500).json({ message: 'Internal server error' });
