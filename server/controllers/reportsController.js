@@ -1,4 +1,8 @@
 const { Report } = require('../models');
+require('dotenv').config();
+const fs = require("fs");
+const OpenAI = require("openai");
+
 
 class ReportsController {
 
@@ -101,6 +105,62 @@ class ReportsController {
             res.status(500).json({ message: 'Internal server error' });
         }
     };
+
+
+
+    static async uploadReportAudio(req, res) {
+        if (!req.file) {
+            return res.status(400).json({ message: "File audio wajib diupload." });
+        }
+
+        const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+        try {
+            const filePath = req.file.path;
+
+            const transcription = await openai.audio.transcriptions.create({
+                file: fs.createReadStream(filePath),
+                model: "gpt-4o-transcribe",
+                response_format: "json"
+            });
+
+            fs.unlinkSync(filePath);
+
+            const transcript = transcription.text;
+
+            const systemPrompt = `
+            Kamu adalah asisten admin RT. Ambil dan kembalikan data berikut dari teks laporan warga:
+            - title: Judul singkat masalah/kejadian
+            - description: Ringkasan masalah secara jelas
+            - category: Nama kategori laporan (terdiri dari 8 category, yaitu Kebersihan, Keamanan, Fasilitas Umum, kesehatan, sosial, administrasi, gangguan lsitrik/air, lain-lain )
+            Contoh hasil JSON: {"title":"Lampu Jalan Mati", "description":"Lampu di depan rumah mati sejak kemarin.", "category":"Fasilitas Umum"}
+            Jika tidak jelas, isi category dengan "Lain-lain".
+            Jawab HANYA JSON!
+        `;
+
+            const gptResult = await openai.chat.completions.create({
+                model: "gpt-4o",
+                messages: [
+                    { role: "system", content: systemPrompt },
+                    { role: "user", content: transcript }
+                ],
+                temperature: 0.3,
+            });
+
+            let output;
+            try {
+                output = JSON.parse(gptResult.choices[0].message.content);
+            } catch (e) {
+                return res.status(500).json({ message: "Gagal parsing hasil GPT." });
+            }
+
+            res.json(output);
+
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: "Gagal memproses audio." });
+        }
+    }
 
 
 }

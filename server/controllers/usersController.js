@@ -6,13 +6,10 @@ class UserController {
         try {
 
             const id = req.user.id;
-            // console.log("REQ.USER", req.user);
 
             const user = await User.findByPk(id, {
                 attributes: ['id', 'name', 'email'],
             });
-
-            // console.log("USER PROFILE", user);
 
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });

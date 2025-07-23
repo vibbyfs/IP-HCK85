@@ -50,10 +50,6 @@ class AuthController {
                 return res.status(401).json({ message: 'Email or password is incorrect.' });
             }
 
-            // if (!user.isApproved) {
-            //     return res.status(403).json({ message: 'Your account has not been approved by the RT admin.' });
-            // }
-
             const valid = comparePassword(password, user.password);
             if (!valid) {
                 return res.status(401).json({ message: 'Email or password is incorrect.' });
