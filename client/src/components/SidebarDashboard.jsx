@@ -34,17 +34,18 @@ export default function SidebarDashboard() {
         >
           Buat Laporan
         </Link>
-        <Link
-          to="/my-profile"
-          className="block py-2 px-4 hover:bg-gray-100 rounded-lg"
-        >
-          My Profile
-        </Link>
+
         <Link
           to="/payment"
           className="block py-2 px-4 hover:bg-gray-100 rounded-lg"
         >
           Pembayaran
+        </Link>
+        <Link
+          to="/my-profile"
+          className="block py-2 px-4 hover:bg-gray-100 rounded-lg"
+        >
+          My Profile
         </Link>
         <button
           onClick={handleLogout}

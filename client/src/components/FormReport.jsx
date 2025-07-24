@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SidebarDashboard from "../components/SideBarDashboard";
 import http from "../lib/http";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
-import { useEffect } from "react";
+import { Mic } from "lucide-react";
 
 export default function FormReport(props) {
   const { type } = props;
@@ -36,7 +36,7 @@ export default function FormReport(props) {
           }
         );
 
-        toast.success("Report successfully");
+        toast.success("Report berhasil dikirim!");
       } else {
         await http.put(
           `/reports/${id}/update`,
@@ -52,17 +52,15 @@ export default function FormReport(props) {
             },
           }
         );
-        toast.success("Updated successfully");
+        toast.success("Report berhasil diupdate!");
       }
 
       navigate("/dashboard");
-
       setTitle("");
       setDescription("");
       setCategoryId("");
       setImageUrl("");
     } catch (err) {
-      console.log("ERROR CREATE RESPORTS", err);
       const msgErr = err.response?.data?.message || "Something went wrong.";
       toast.dismiss();
       toast.error(msgErr);
@@ -78,13 +76,11 @@ export default function FormReport(props) {
       });
 
       const newReport = response.data;
-
       setTitle(newReport.title);
       setDescription(newReport.description);
       setCategoryId(newReport.CategoryId);
       setImageUrl(newReport.imageUrl);
     } catch (err) {
-      console.log("ERROR GET DATA REPORTS COMPONENT FORM");
       const msgErr = err.response?.data?.message || "Something went wrong.";
       toast.dismiss();
       toast.error(msgErr);
@@ -98,10 +94,8 @@ export default function FormReport(props) {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
-
       setCategories(response.data);
     } catch (err) {
-      console.log("ERROR FETCH DATA CATEGORIES", err);
       const msgErr = err.response?.data?.message || "Something went wrong.";
       toast.dismiss();
       toast.error(msgErr);
@@ -110,18 +104,18 @@ export default function FormReport(props) {
 
   useEffect(() => {
     fetchDataCategories();
-
-    if (type === "edit") {
-      fetchDataReports();
-    }
+    if (type === "edit") fetchDataReports();
+    // eslint-disable-next-line
   }, [type]);
 
   return (
     <section className="bg-gray-50 min-h-screen">
+      {/* Sidebar kiri desktop */}
       <div className="hidden md:block fixed top-0 left-0 h-full w-72 bg-white shadow-xl p-6 z-10">
         <SidebarDashboard />
       </div>
 
+      {/* Header fixed */}
       <div className="fixed top-0 left-0 right-0 z-30 bg-gray-50 border-b shadow-sm md:ml-72 md:pl-4 h-24 flex items-center">
         {/* Hamburger untuk mobile */}
         <button
@@ -143,22 +137,33 @@ export default function FormReport(props) {
             />
           </svg>
         </button>
-        {/* Judul + greeting */}
-        <div className="w-full">
-          <div className="max-w-4xl mx-auto px-2 md:px-0">
+        {/* Judul + tombol laporan suara */}
+        <div className="w-full flex items-center justify-between max-w-4xl mx-auto px-2 md:px-0">
+          <div className="flex-1">
             <div className="bg-white rounded-xl shadow p-3 md:p-4 mt-1 flex justify-center items-center">
               Silakan isi form laporan di bawah ini!
             </div>
           </div>
+          
         </div>
       </div>
 
-      {/* MAIN CONTENT (mulai di bawah header) */}
+      {/* Main Content */}
       <div className="md:ml-72 md:pl-4 max-w-4xl mx-auto px-2 md:px-0 pt-28 md:pt-36">
+        
         <form
           className="bg-white shadow-lg rounded-xl p-4 md:p-6 max-w-2xl mx-auto"
           onSubmit={handleSubmit}
         >
+          <button
+            className="mb-7 px-4 py-2 bg-blue-700 text-white font-semibold rounded-xl shadow flex items-center gap-2 hover:bg-blue-800 transition"
+            onClick={() => navigate("/reports/audio")}
+            title="Buat Laporan Suara"
+            type="button"
+          >
+            <Mic className="w-5 h-5" />
+            <span className="hidden md:inline">Laporan Suara</span>
+          </button>
           {/* Judul */}
           <div className="mb-4">
             <label className="block font-semibold mb-1">Judul Laporan *</label>
@@ -169,6 +174,7 @@ export default function FormReport(props) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Judul Laporan"
+              required
             />
           </div>
           {/* Deskripsi */}
@@ -181,6 +187,7 @@ export default function FormReport(props) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Jelaskan laporan kamu secara detail"
+              required
             />
           </div>
           {/* Kategori */}
@@ -191,6 +198,7 @@ export default function FormReport(props) {
               name="categoryId"
               value={CategoryId}
               onChange={(e) => setCategoryId(e.target.value)}
+              required
             >
               <option value="">Pilih Kategori</option>
               {categories.map((cat) => (
@@ -228,7 +236,7 @@ export default function FormReport(props) {
         </form>
       </div>
 
-      {/* SIDEBAR DRAWER (Mobile) */}
+      {/* Sidebar Drawer (Mobile) */}
       <div
         className={`fixed inset-0 z-50 bg-black bg-opacity-40 transition-opacity duration-300 ${
           sidebarOpen
@@ -262,6 +270,7 @@ export default function FormReport(props) {
               />
             </svg>
           </button>
+          <SidebarDashboard />
         </div>
       </div>
     </section>

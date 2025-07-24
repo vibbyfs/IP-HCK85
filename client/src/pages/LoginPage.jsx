@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import http from "../lib/http";
@@ -27,6 +27,36 @@ export default function LoginPage() {
       toast.error(msgErr);
     }
   }
+
+  async function handleCredentialResponse(response) {
+    console.log("Encoded JWT ID token: " + response.credential);
+
+    try {
+      const res = await http.post("/auth/login-google", {
+        id_token: response.credential,
+      });
+
+      localStorage.setItem("access_token", res.data.access_token);
+
+      toast.success("Login success");
+      navigate("/dashboard");
+    } catch (err) {
+      console.log("ERROR LOGIN WITH GOOGLE", err);
+    }
+  }
+
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "119450448936-0cbt98b97e8m4vhfga46ora1d8u9936k.apps.googleusercontent.com",
+      callback: handleCredentialResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+    // google.accounts.id.prompt();
+  }, []);
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gray-50 py-12 sm:py-16 lg:py-20">
@@ -81,11 +111,12 @@ export default function LoginPage() {
               Belum punya akun?{" "}
               <Link
                 to="/register"
-                className="text-blue-600 hover:text-blue-500 font-medium"
+                className=" text-blue-600 hover:text-blue-500 font-medium"
               >
                 Daftar di sini
               </Link>
             </p>
+            <div id="buttonDiv" className="mt-3"></div>
           </div>
 
           <div className="mt-4 text-center">

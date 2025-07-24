@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import SidebarDashboard from "../components/SideBarDashboard";
 import http from "../lib/http";
 import { useNavigate } from "react-router";
-import { Mic, Square, UploadCloud } from "lucide-react";
+import { Mic, Square } from "lucide-react";
 
 export default function ReportAudioPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -10,8 +10,8 @@ export default function ReportAudioPage() {
   const [audioBlob, setAudioBlob] = useState(null);
   const [audioUrl, setAudioUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const mediaRecorderRef = useRef(null);
   const [error, setError] = useState("");
+  const mediaRecorderRef = useRef(null);
   const navigate = useNavigate();
 
   async function handleRecord() {
@@ -43,14 +43,6 @@ export default function ReportAudioPage() {
   function handleStop() {
     mediaRecorderRef.current && mediaRecorderRef.current.stop();
     setRecording(false);
-  }
-
-  function handleFileUpload(e) {
-    const file = e.target.files[0];
-    if (file) {
-      setAudioBlob(file);
-      setAudioUrl(URL.createObjectURL(file));
-    }
   }
 
   async function handleGenerate() {
@@ -88,7 +80,6 @@ export default function ReportAudioPage() {
           onClick={() => setSidebarOpen(true)}
           aria-label="Open sidebar"
         >
-          {/* Hamburger icon (Lucide) */}
           <svg
             className="w-7 h-7 text-blue-600"
             fill="none"
@@ -150,19 +141,6 @@ export default function ReportAudioPage() {
               Your browser does not support the audio element.
             </audio>
           )}
-
-          {/* Atau upload file */}
-          <label className="flex items-center gap-2 mb-4 text-sm cursor-pointer text-blue-700 hover:underline">
-            <UploadCloud className="w-5 h-5" />
-            <input
-              type="file"
-              accept="audio/*"
-              className="hidden"
-              onChange={handleFileUpload}
-              disabled={recording}
-            />
-            Upload file audio (opsional)
-          </label>
 
           <button
             type="button"

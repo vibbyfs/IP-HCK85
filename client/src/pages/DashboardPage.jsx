@@ -16,6 +16,10 @@ export default function DashboardPage() {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
+
+      console.log(response);
+      
+
       setReports(response.data);
     } catch (err) {
       const msgErr = err?.response?.data?.message || "Something went wrong.";
@@ -93,7 +97,7 @@ export default function DashboardPage() {
         {/* Report Cards */}
         <div>
           {reports.map((report, i) => (
-            <ReportCard key={i} {...report} onDelete={handleDelete} />
+            <ReportCard key={i} {...report} name={report.User?.name} onDelete={handleDelete} />
           ))}
         </div>
       </div>
