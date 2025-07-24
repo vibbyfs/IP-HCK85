@@ -47,14 +47,16 @@ class CitizenController {
                 where: { UserId: req.user.id },
                 include: [{ model: Address }],
             });
-            if (!citizen) return res.status(404).json({ message: "Data not found" });
+            if (!citizen) {
+                return res.status(404).json({ message: "Data not found" });
+            }
+                
             res.status(200).json(citizen);
         } catch (err) {
             res
                 .status(500)
                 .json({
-                    message: "Failed to retrieve citizen data",
-                    error: err.message,
+                    message: 'Internal server error'
                 });
         }
     }

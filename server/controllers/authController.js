@@ -21,7 +21,7 @@ class AuthController {
             });
 
             return res.status(201).json({
-                message: 'Registration successful. You can login'
+                message: 'Registration successful. Please log in to proceed.'
             });
         } catch (err) {
             console.log("ERROR REGISTER", err);
@@ -78,6 +78,7 @@ class AuthController {
 
     static async googleLogin(req, res) {
         const { id_token } = req.body
+        
         try {
 
             const ticket = await client.verifyIdToken({

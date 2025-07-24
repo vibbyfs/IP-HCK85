@@ -62,6 +62,13 @@ module.exports = {
     }
     await queryInterface.bulkInsert('Transactions', transactions);
 
+    for (const address of addresses) {
+      delete address.id;
+      address.createdAt = new Date();
+      address.updatedAt = new Date();
+    }
+    await queryInterface.bulkInsert('Addresses', addresses);
+
     for (const citizen of citizens) {
       delete citizen.id;
       citizen.createdAt = new Date();
@@ -69,12 +76,7 @@ module.exports = {
     }
     await queryInterface.bulkInsert('Citizens', citizens);
 
-    for (const address of addresses) {
-      delete address.id;
-      address.createdAt = new Date();
-      address.updatedAt = new Date();
-    }
-    await queryInterface.bulkInsert('Addresses', addresses);
+
 
   },
 
@@ -86,8 +88,8 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await queryInterface.bulkDelete('Addresses', null, { truncate: true, restartIdentity: true, cascade: true });
     await queryInterface.bulkDelete('Citizens', null, { truncate: true, restartIdentity: true, cascade: true });
+    await queryInterface.bulkDelete('Addresses', null, { truncate: true, restartIdentity: true, cascade: true });
     await queryInterface.bulkDelete('Transactions', null, { truncate: true, restartIdentity: true, cascade: true });
     await queryInterface.bulkDelete('Comments', null, { truncate: true, restartIdentity: true, cascade: true });
     await queryInterface.bulkDelete('Reports', null, { truncate: true, restartIdentity: true, cascade: true });

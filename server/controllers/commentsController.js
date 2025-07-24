@@ -11,7 +11,7 @@ class CommentsController {
                 order: [['createdAt', 'ASC']],
                 include: [{ model: User, attributes: ['id', 'name'] }]
             });
-            res.json(comments);
+            res.status(200).json(comments);
         } catch (err) {
             res.status(500).json({ message: "Internal server error" });
         }
@@ -38,13 +38,12 @@ class CommentsController {
             const comment = await Comment.findByPk(commentId);
             if (!comment) return res.status(404).json({ message: "Comment not found" });
 
-            // Cek apakah user yang login adalah pemilik komentar
             if (comment.UserId !== req.user.id) {
-                return res.status(403).json({ message: "Forbidden: You can only delete your own comment" });
+                return res.status(403).json({ message: "You are not authorized" });
             }
 
             await comment.destroy();
-            res.json({ message: "Comment deleted successfully" });
+            res.status(200).json({ message: "Comment deleted successfully" });
         } catch (err) {
             res.status(500).json({ message: "Internal server error" });
         }

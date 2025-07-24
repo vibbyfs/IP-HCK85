@@ -18,7 +18,7 @@ class TransactionController {
                 paidAt,
             });
 
-            res.status(201).json({ message: 'Transactions successful', transaction });
+            res.status(201).json({transaction });
         } catch (err) {
             console.log("ERROR CREATE TRANSACTION", err);
             res.status(500).json({ message: 'Internal server error' });
@@ -27,16 +27,18 @@ class TransactionController {
 
     static async getMyTransactions(req, res) {
         try {
+            const userId = req.user.id;
             const transactions = await Transaction.findAll({
-                where: { UserId: req.user.UserId },
-                order: [['createdAt', 'DESC']]
+                where: { UserId: userId },
+                order: [['paidAt', 'DESC']],
+                attributes: ['id', 'amount', 'transactionId', 'paidAt', 'method'],
             });
             res.json(transactions);
         } catch (err) {
-            console.log("ERROR GET MY TRANSACTIONS", err);
-            res.status(500).json({ message: 'Internal server error' });
+            console.log("ERROR GET TRANSACTIONS", err);
+            res.status(500).json({ message: "Internal server error" });
         }
-    };
+    }
 
     static async initiateMidtransTrx(req, res) {
         try {
@@ -45,7 +47,6 @@ class TransactionController {
             const amount = 30_000
 
             let snap = new midtransClient.Snap({
-                // Set to true if you want Production Environment (accept real transaction).
                 isProduction: false,
                 serverKey: process.env.MIDTRANS_API_KEY
             });
@@ -62,8 +63,6 @@ class TransactionController {
 
             const transaction = await snap.createTransaction(parameter)
             let transactionToken = transaction.token
-            // console.log(transactionToken);
-
 
             await Transaction.create({
                 UserId: req.user.id,
@@ -71,14 +70,12 @@ class TransactionController {
                 orderId
             })
 
-            res.status(201).json({transactionToken})
+            res.status(201).json({ transactionToken })
         } catch (err) {
             console.log("ERROR GET ALL TRANSACTIONS", err);
             res.status(500).json({ message: 'Internal server error' });
         }
     };
-
-
 
 }
 

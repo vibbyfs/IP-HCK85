@@ -1,4 +1,4 @@
-const { Report } = require('../models');
+const { Report, User } = require('../models');
 require('dotenv').config();
 const fs = require("fs");
 const path = require('path')
@@ -30,6 +30,12 @@ class ReportsController {
         try {
             const reports = await Report.findAll({
                 order: [["createdAt", "DESC"]],
+                include: [
+                    {
+                        model: User,
+                        attributes: ["name"]
+                    }
+                ]
             });
 
             res.json(reports);
@@ -38,6 +44,7 @@ class ReportsController {
             res.status(500).json({ message: "Internal server error" });
         }
     }
+
 
 
     static async reportsById(req, res) {
@@ -112,18 +119,14 @@ class ReportsController {
 
     static async uploadReportAudio(req, res) {
         if (!req.file) {
-            return res.status(400).json({ message: "File audio wajib diupload." });
+            return res.status(400).json({ message: "Audio file must be uploaded." });
+
         }
 
         const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
         try {
             const filePath = path.join(__dirname, '..', 'uploads', req.file.filename);
-
-            console.log(req.file);
-            console.log(filePath);
-            // console.log();
-            // throw {}
 
             const transcription = await openai.audio.transcriptions.create({
                 file: fs.createReadStream(filePath),
@@ -158,14 +161,14 @@ class ReportsController {
             try {
                 output = JSON.parse(gptResult.choices[0].message.content);
             } catch (e) {
-                return res.status(500).json({ message: "Gagal parsing hasil GPT." });
+                return res.status(500).json({ message: "Internal server error" });
             }
 
             res.json(output);
 
         } catch (err) {
             console.error(err);
-            res.status(500).json({ message: "Gagal memproses audio." });
+            res.status(500).json({ message: "Internal server error" });
         }
     }
 

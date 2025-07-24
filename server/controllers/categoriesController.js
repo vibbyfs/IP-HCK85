@@ -4,7 +4,6 @@ class CategoryController {
 
     static async getCategories(req, res) {
         try {
-            
             const categories = await Category.findAll()
 
             res.status(200).json(categories)
@@ -12,8 +11,7 @@ class CategoryController {
             res
                 .status(500)
                 .json({
-                    message: "Failed to retrieve citizen data",
-                    error: err.message,
+                    message: 'Internal server error'
                 });
         }
     }
