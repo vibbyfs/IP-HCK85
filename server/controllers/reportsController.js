@@ -7,9 +7,10 @@ const OpenAI = require("openai");
 
 class ReportsController {
 
-    static async createReport(req, res) {
+    static async createReport(req, res, next) {
         try {
             const { title, description, imageUrl, CategoryId, latitude, longitude } = req.body;
+
             const report = await Report.create({
                 title,
                 description,
@@ -19,14 +20,15 @@ class ReportsController {
                 latitude,
                 longitude,
             });
+
             res.status(201).json(report);
         } catch (err) {
             console.log("ERROR CREATE REPORT", err);
-            res.status(500).json({ message: 'Internal server error' });
+            next(err);
         }
     };
 
-    static async listReports(req, res) {
+    static async listReports(req, res, next) {
         try {
             const reports = await Report.findAll({
                 order: [["createdAt", "DESC"]],
@@ -38,54 +40,52 @@ class ReportsController {
                 ]
             });
 
-            res.json(reports);
+            res.status(200).json(reports);
         } catch (err) {
             console.log("ERROR LIST REPORTS", err);
-            res.status(500).json({ message: "Internal server error" });
+            next(err);
         }
     }
 
-
-
-    static async reportsById(req, res) {
+    static async reportsById(req, res, next) {
         try {
             const { id } = req.params;
 
             const report = await Report.findByPk(id);
 
             if (!report) {
-                return res.status(404).json({ message: "Report not found." });
+                throw { name: "NotFound", message: "Report not found" };
             }
 
             res.status(200).json(report);
         } catch (error) {
             console.log("ERROR GET REPORT BY ID", error);
-            res.status(500).json({ message: "Internal server error." });
+            next(err);
         }
     }
 
 
-    static async updateReport(req, res) {
+    static async updateReport(req, res, next) {
         try {
             const { id } = req.params;
             const { title, description, CategoryId, latitude, longitude } = req.body;
 
             const report = await Report.findByPk(id);
             if (!report) {
-                return res.status(404).json({ message: "Report not found." });
+                throw { name: "NotFound", message: "Report not found" };
             }
 
             await report.update({ title, description, CategoryId, latitude, longitude });
 
-            res.json(report);
+            res.status(200).json(report);
         } catch (err) {
             console.log("ERROR UPDATE REPORT", err);
-            res.status(500).json({ message: "Internal server error" });
+            next(err);
         }
     }
 
 
-    static async deleteReport(req, res) {
+    static async deleteReport(req, res, next) {
         try {
             const { id } = req.params;
 
@@ -95,32 +95,29 @@ class ReportsController {
             res.status(200).json({ message: 'Report deleted successfully.' });
         } catch (err) {
             console.log("ERROR DELETE REPORT", err);
-            res.status(500).json({ message: 'Internal server error' });
+            next(err);
         }
     }
 
-    static async uploadReportImage(req, res) {
+    static async uploadReportImage(req, res, next) {
         try {
             const { id } = req.params;
             const report = await Report.findByPk(id);
 
-            // update kode
             report.imageUrl = req.file.path;
             await report.save();
 
             res.status(200).json({ message: 'Image uploaded successfully' });
         } catch (err) {
             console.log("ERROR UPLOAD REPORT IMAGE", err);
-            res.status(500).json({ message: 'Internal server error' });
+            next(err);
         }
     };
 
+    static async uploadReportAudio(req, res, next) {
 
-
-    static async uploadReportAudio(req, res) {
         if (!req.file) {
-            return res.status(400).json({ message: "Audio file must be uploaded." });
-
+            throw { name: "BadRequest", message: "Audio file is required" };
         }
 
         const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -164,11 +161,11 @@ class ReportsController {
                 return res.status(500).json({ message: "Internal server error" });
             }
 
-            res.json(output);
+            res.status(200).json(output);
 
         } catch (err) {
-            console.error(err);
-            res.status(500).json({ message: "Internal server error" });
+            console.log("ERROR UPLOAD REPORT AUDIO", err);
+            next(err);
         }
     }
 

@@ -29,16 +29,10 @@ module.exports = (sequelize, DataTypes) => {
     method: {
       type: DataTypes.STRING,
       allowNull: true,
-      // validate: {
-      //   isIn: [['Midtrans', 'Manual', 'Qris', 'Bank Transfer', 'Gopay', 'ShopeePay', 'Other']],
-      // },
     },
     status: {
       type: DataTypes.STRING,
       allowNull: true,
-      // validate: {
-      //   isIn: [['Pending', 'Paid', 'Failed', 'Expired', 'Canceled']],
-      // },
     },
     transactionId: {
       type: DataTypes.TEXT,

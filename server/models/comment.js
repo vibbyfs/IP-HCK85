@@ -28,13 +28,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Content is required'
+          msg: 'Comment is required'
         },
         notEmpty: {
-          msg: 'Content is required'
+          msg: 'Comment is required'
         },
         len: {
-          args: [3],
+          args: [3, 100],
           msg: 'Content must be at least 3 characters long'
         }
       }

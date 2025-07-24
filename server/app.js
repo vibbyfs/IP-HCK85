@@ -7,8 +7,9 @@ const commentRouter = require('./routes/comments.routes')
 const citizensRouter = require('./routes/citizens.routes')
 const transactionRouter = require('./routes/transactions.routes')
 const addressRouter = require('./routes/address.routes')
-const cors = require('cors')
 const categoriesRouter = require('./routes/categories.routes')
+const errorHandler = require('./middleware/errorHandling')
+const cors = require('cors')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -22,6 +23,8 @@ app.use('/citizens', citizensRouter);
 app.use('/transactions', transactionRouter);
 app.use('/addresses', addressRouter);
 app.use('/categories', categoriesRouter);
+
+app.use(errorHandler)
 
 
 module.exports = app

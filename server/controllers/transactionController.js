@@ -6,7 +6,7 @@ dotenv.config()
 
 class TransactionController {
 
-    static async createTransaction(req, res) {
+    static async createTransaction(req, res, next) {
         try {
             const { amount, method, TransactionId, paidAt } = req.body;
 
@@ -18,29 +18,31 @@ class TransactionController {
                 paidAt,
             });
 
-            res.status(201).json({transaction });
+            res.status(201).json({ transaction });
         } catch (err) {
             console.log("ERROR CREATE TRANSACTION", err);
-            res.status(500).json({ message: 'Internal server error' });
+            next(err);
         }
     };
 
-    static async getMyTransactions(req, res) {
+    static async getMyTransactions(req, res, next) {
         try {
             const userId = req.user.id;
+
             const transactions = await Transaction.findAll({
                 where: { UserId: userId },
                 order: [['paidAt', 'DESC']],
                 attributes: ['id', 'amount', 'transactionId', 'paidAt', 'method'],
             });
-            res.json(transactions);
+
+            res.status(200).json(transactions);
         } catch (err) {
             console.log("ERROR GET TRANSACTIONS", err);
-            res.status(500).json({ message: "Internal server error" });
+            next(err);
         }
     }
 
-    static async initiateMidtransTrx(req, res) {
+    static async initiateMidtransTrx(req, res, next) {
         try {
 
             const orderId = Math.random().toString()
@@ -73,7 +75,7 @@ class TransactionController {
             res.status(201).json({ transactionToken })
         } catch (err) {
             console.log("ERROR GET ALL TRANSACTIONS", err);
-            res.status(500).json({ message: 'Internal server error' });
+            next(err);
         }
     };
 

@@ -1,7 +1,7 @@
 const { Citizen, Address } = require("../models");
 
 class CitizenController {
-    static async createOrUpdateCitizen(req, res) {
+    static async createOrUpdateCitizen(req, res, next) {
 
         const UserId = req.user.id
         try {
@@ -36,28 +36,25 @@ class CitizenController {
 
             res.status(200).json(citizen);
         } catch (err) {
-            console.log("ERROR CREATE/UPDATE CITIZEN", err);
-            res.status(500).json({ message: "Internal server error" });
+            console.log("ERROR CREATE OR UPDATE CITIZEN", err);
+            next(err);
         }
     }
 
-    static async getMyCitizen(req, res) {
+    static async getMyCitizen(req, res, next) {
         try {
             const citizen = await Citizen.findOne({
                 where: { UserId: req.user.id },
                 include: [{ model: Address }],
             });
             if (!citizen) {
-                return res.status(404).json({ message: "Data not found" });
+                throw { name: 'NotFound', message: 'Citizen not found' };
             }
-                
+
             res.status(200).json(citizen);
         } catch (err) {
-            res
-                .status(500)
-                .json({
-                    message: 'Internal server error'
-                });
+            console.log("ERROR GET MY CITIZEN", err);
+            next(err);
         }
     }
 

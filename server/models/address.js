@@ -15,92 +15,92 @@ module.exports = (sequelize, DataTypes) => {
   }
   Address.init({
     provinceId: {
-  type: DataTypes.STRING,
-  // allowNull: false,
-  // validate: {
-  //   notEmpty: true,
-  //   len: [2, 10],
-  // },
-},
-provinceName: {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-    len: [2, 100],
-  },
-},
-regencyId: {
-  type: DataTypes.STRING,
-  // allowNull: false,
-  // validate: {
-  //   notEmpty: true,
-  // },
-},
-regencyName: {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-  },
-},
-districtId: {
-  type: DataTypes.STRING,
-  // allowNull: false,
-  // validate: {
-  //   notEmpty: true,
-  // },
-},
-districtName: {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-  },
-},
-villageId: {
-  type: DataTypes.STRING,
-  // allowNull: false,
-  // validate: {
-  //   notEmpty: true,
-  // },
-},
-villageName: {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-  },
-},
-rt: {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    is: /^[0-9]{1,3}$/,
-  },
-},
-rw: {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    is: /^[0-9]{1,3}$/,
-  },
-},
-street: {
-  type: DataTypes.TEXT,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-    len: [5, 255],
-  },
-},
-postalCode: {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    is: /^[0-9]{5}$/,
-  },
-},
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [2, 10],
+      },
+    },
+    provinceName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [2, 100],
+      },
+    },
+    regencyId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    regencyName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    districtId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    districtName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    villageId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    villageName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    rt: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: /^[0-9]{1,3}$/,
+      },
+    },
+    rw: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: /^[0-9]{1,3}$/,
+      },
+    },
+    street: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [5, 255],
+      },
+    },
+    postalCode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: /^[0-9]{5}$/,
+      },
+    },
 
   }, {
     sequelize,

@@ -6,17 +6,17 @@ async function authorization(req, res, next) {
 
     const report = await Report.findByPk(id);
     if (!report) {
-      return res.status(404).json({ message: 'Report not found' });
+      throw { name: 'NotFound', message: 'Report not found' }
     }
 
     if (report.UserId !== req.user.id) {
-      return res.status(403).json({ message: 'You are not authorized' })
+      throw { name: 'Forbidden', message: 'You are not authorized to access this report' }
     }
 
     next();
-  } catch (error) {
-    console.log('ERROR AUTHORIZATION', error);
-    res.status(500).json({ message: 'Internal server error' })
+  } catch (err) {
+    console.log('ERROR AUTHORIZATION', err);
+    next(err);
   }
 }
 

@@ -7,7 +7,7 @@ async function authentication(req, res, next) {
         const authorization = req.headers.authorization
 
         if (!authorization) {
-            res.status(401).json({ message: 'Invalid token' })
+            throw { name: 'Unauthorized', message: 'Invalid token' }
         }
 
         const rawToken = authorization.split(' ')
@@ -15,16 +15,14 @@ async function authentication(req, res, next) {
         const valueToken = rawToken[1]
 
         if (keyToken !== 'Bearer' || !valueToken) {
-            res.status(401).json({ message: 'Invalid token' })
+            throw { name: 'Unauthorized', message: 'Invalid token'}
         }
 
         const result = verifyToken(valueToken)
 
-        // console.log("RESULT AUTENTICATION", result);
-
         const user = await User.findByPk(result.id)
         if (!user) {
-            res.status(401).json({ message: 'Invalid token' })
+            throw { name: 'Unauthorized', message: 'Invalid token' }
         }
 
         req.user = { id: user.id }
@@ -32,10 +30,7 @@ async function authentication(req, res, next) {
         next()
     } catch (err) {
         console.log("ERROR AUTENTICATION", err);
-        if (err.name === 'JsonWebTokenError') {
-            return res.status(401).json({ message: 'Invalid token' })
-        }
-        res.status(500).json({ message: 'Internal server error' })
+        next(err)
     }
 }
 

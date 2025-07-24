@@ -3,9 +3,10 @@ const { Comment, User } = require('../models');
 class CommentsController {
 
 
-    static async listComments(req, res) {
+    static async listComments(req, res, next) {
         try {
             const { id: ReportId } = req.params;
+
             const comments = await Comment.findAll({
                 where: { ReportId },
                 order: [['createdAt', 'ASC']],
@@ -13,14 +14,16 @@ class CommentsController {
             });
             res.status(200).json(comments);
         } catch (err) {
-            res.status(500).json({ message: "Internal server error" });
+            console.log("ERROR IN LIST COMMENTS", err);
+            next(err);
         }
     }
 
-    static async createComment(req, res) {
+    static async createComment(req, res, next) {
         try {
             const { id: ReportId } = req.params;
             const { content } = req.body;
+
             const comment = await Comment.create({
                 content,
                 ReportId,
@@ -28,24 +31,29 @@ class CommentsController {
             });
             res.status(201).json(comment);
         } catch (err) {
-            res.status(500).json({ message: "Internal server error" });
+            console.log("ERROR IN CREATE COMMENT", err);
+            next(err);
         }
     }
 
-    static async deleteComment(req, res) {
+    static async deleteComment(req, res, next) {
         try {
             const { commentId } = req.params;
+
             const comment = await Comment.findByPk(commentId);
-            if (!comment) return res.status(404).json({ message: "Comment not found" });
+            if (!comment) {
+                throw { name: "NotFound", message: "Comment not found" };
+            }
 
             if (comment.UserId !== req.user.id) {
-                return res.status(403).json({ message: "You are not authorized" });
+                throw { name: "Forbidden", message: "You are not authorized to delete this comment" };
             }
 
             await comment.destroy();
             res.status(200).json({ message: "Comment deleted successfully" });
         } catch (err) {
-            res.status(500).json({ message: "Internal server error" });
+            console.log("ERROR IN DELETE COMMENT", err);
+            next(err);
         }
     }
 
