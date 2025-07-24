@@ -105,7 +105,6 @@ export default function FormReport(props) {
   useEffect(() => {
     fetchDataCategories();
     if (type === "edit") fetchDataReports();
-    // eslint-disable-next-line
   }, [type]);
 
   return (

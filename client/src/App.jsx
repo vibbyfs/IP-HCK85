@@ -14,6 +14,8 @@ import CreateReportPage from "./pages/CreateReportPage";
 import EditReportPage from "./pages/EditReportPage";
 import ReportAudioUploadPage from "./pages/ReportAudioPage";
 import ConfirmAudioReportPage from "./pages/ConfirmAudioReportPage";
+import AuthLayout from "./layout/AuthLayout";
+import ProtectedLayout from "./layout/ProtectedLayout";
 
 function App() {
   function MainLayout() {
@@ -32,23 +34,31 @@ function App() {
       <BrowserRouter>
         <Toaster position="top-right" />
         <Routes>
+          {/* Public route */}
           <Route element={<MainLayout />}>
             <Route path="/" element={<LandingPage />} />
           </Route>
 
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/addresses/form" element={<AddressFormPage />} />
-          <Route path="/citizens/form" element={<CitizenFormPage />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Route>
 
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/reports/create" element={<CreateReportPage />} />
-          <Route path="/reports/audio" element={<ReportAudioUploadPage />} />
-          <Route path="/reports/confirm-audio" element={<ConfirmAudioReportPage />} />
-          <Route path="/reports/:id/edit" element={<EditReportPage />} />
-          <Route path="/my-profile" element={<MyProfilePage />} />
-          <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/announcements" element={<AnnouncementsPage />} />
+          <Route element={<ProtectedLayout />}>
+            <Route path="/addresses/form" element={<AddressFormPage />} />
+            <Route path="/citizens/form" element={<CitizenFormPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/reports/create" element={<CreateReportPage />} />
+            <Route path="/reports/audio" element={<ReportAudioUploadPage />} />
+            <Route
+              path="/reports/confirm-audio"
+              element={<ConfirmAudioReportPage />}
+            />
+            <Route path="/reports/:id/edit" element={<EditReportPage />} />
+            <Route path="/my-profile" element={<MyProfilePage />} />
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/announcements" element={<AnnouncementsPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

@@ -4,6 +4,7 @@ import RightSidebar from "../components/RightSidebar";
 import ReportCard from "../components/ReportCard";
 import http from "../lib/http";
 import toast from "react-hot-toast";
+import { Navigate } from "react-router";
 
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,7 +19,6 @@ export default function DashboardPage() {
       });
 
       console.log(response);
-      
 
       setReports(response.data);
     } catch (err) {
@@ -97,7 +97,12 @@ export default function DashboardPage() {
         {/* Report Cards */}
         <div>
           {reports.map((report, i) => (
-            <ReportCard key={i} {...report} name={report.User?.name} onDelete={handleDelete} />
+            <ReportCard
+              key={i}
+              {...report}
+              name={report.User?.name}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       </div>
@@ -122,6 +127,7 @@ export default function DashboardPage() {
           }`}
           onClick={(e) => e.stopPropagation()}
         >
+          {/* Tombol Close */}
           <button
             className="absolute top-3 right-3 text-gray-500"
             onClick={() => setSidebarOpen(false)}
@@ -141,6 +147,11 @@ export default function DashboardPage() {
               />
             </svg>
           </button>
+          
+          {/* Konten Sidebar */}
+          <div className="mt-12">
+            <SidebarDashboard />
+          </div>
         </div>
       </div>
     </section>

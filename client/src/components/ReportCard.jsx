@@ -11,7 +11,6 @@ export default function ReportCard({
   id,
   name,
 }) {
-  
   const displayName = name || "Anonim";
   const avatar = `https://ui-avatars.com/api/?name=`;
 
@@ -60,7 +59,6 @@ export default function ReportCard({
         <div className="font-bold text-lg">{title}</div>
         <div className="text-gray-700 text-sm">{description}</div>
       </div>
-      {/* Komentar: langsung fetch by reportId */}
       <ReportComments reportId={id} />
     </div>
   );

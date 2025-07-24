@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import http from "../lib/http";
 
 export default function AddressFormPage() {
-  const [address, setAddress] = useState({
-    provinceName: "DKI Jakarta",
-    regencyName: "Jakarta Selatan",
-    districtName: "kebayoran Lama",
-    villageName: "Tanah kusir",
-    rt: "01",
-    rw: "02",
-    street: "Jln. Tanah Kusir3",
-    postalCode: "17142",
-  });
   const navigate = useNavigate();
+  const [address, setAddress] = useState({
+    provinceId: "",
+    provinceName: "",
+    regencyId: "",
+    regencyName: "",
+    districId: "",
+    districtName: "",
+    villageId: "",
+    villageName: "",
+    rt: "",
+    rw: "",
+    street: "",
+    postalCode: "",
+  });
 
-  const handleSubmit = async (e) => {
+  const [regions, setRegions] = useState({
+    provinces: [],
+    regencies: [],
+    districts: [],
+    villages: [],
+  });
+
+  async function handleSubmit(e) {
     e.preventDefault();
     try {
       const response = await http.post("/addresses/add", address, {
@@ -27,9 +38,69 @@ export default function AddressFormPage() {
       localStorage.setItem("AddressId", AddressId);
       navigate("/citizens/form");
     } catch (err) {
-      console.log(err);
+      console.log("ERROR ADD ADDRESS");
     }
-  };
+  }
+
+  async function fetchProvinces() {
+    try {
+      const res = await fetch(
+        "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
+      );
+      const data = await res.json();
+      console.log(data);
+
+      setRegions((prev) => ({ ...prev, provinces: data }));
+    } catch (err) {
+      console.log("ERROR FETCH DATA PROVINCE", err);
+    }
+  }
+
+  async function fetchRegencies(provinceId) {
+    try {
+      const res = await fetch(
+        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
+      );
+      const data = await res.json();
+      console.log(data);
+
+      setRegions((prev) => ({ ...prev, regencies: data }));
+    } catch (err) {
+      console.log("ERROR FETCH DATA REGENCIES", err);
+    }
+  }
+
+  async function fetchDistricts(regencyId) {
+    try {
+      const res = await fetch(
+        `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${regencyId}.json`
+      );
+      const data = await res.json();
+      console.log(data);
+
+      setRegions((prev) => ({ ...prev, districts: data }));
+    } catch (err) {
+      console.log("ERROR FETCH DATA DSITRICTS", err);
+    }
+  }
+
+  async function fetchVilages(districtId) {
+    try {
+      const res = await fetch(
+        `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${districtId}.jsonhttps://wilayah.id/api/provinces.json`
+      );
+      const data = await res.json();
+      console.log(data);
+
+      setRegions((prev) => ({ ...prev, villages: data }));
+    } catch (err) {
+      console.log("ERROR FETCH DATA VILLAGES", err);
+    }
+  }
+
+  useEffect(() => {
+    fetchProvinces();
+  }, []);
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gray-100 py-8 px-2">
@@ -88,13 +159,17 @@ export default function AddressFormPage() {
                 className="input w-1/2"
                 placeholder="RT"
                 value={address.rt}
-                onChange={(e) => setAddress((a) => ({ ...a, rt: e.target.value }))}
+                onChange={(e) =>
+                  setAddress((a) => ({ ...a, rt: e.target.value }))
+                }
               />
               <input
                 className="input w-1/2"
                 placeholder="RW"
                 value={address.rw}
-                onChange={(e) => setAddress((a) => ({ ...a, rw: e.target.value }))}
+                onChange={(e) =>
+                  setAddress((a) => ({ ...a, rw: e.target.value }))
+                }
               />
             </div>
             <input
@@ -120,7 +195,7 @@ export default function AddressFormPage() {
           >
             Simpan & Lanjut
           </button>
-              <button
+          <button
             type="button"
             className="mb-4 px-5 py-2 bg-gray-200 rounded-xl hover:bg-gray-300 font-semibold mt-2"
             onClick={() => navigate(-1)}

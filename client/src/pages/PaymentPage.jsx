@@ -3,6 +3,7 @@ import SidebarDashboard from "../components/SideBarDashboard";
 import http from "../lib/http";
 import toast from "react-hot-toast";
 
+// Dummy Tagihan Aktif (akan berubah jadi Lunas setelah pembayaran sukses)
 const dummyActiveBill = {
   month: "Agustus 2025",
   amount: 20000,
@@ -17,7 +18,6 @@ export default function PaymentPage() {
 
   useEffect(() => {
     fetchTransactions();
-    // fetchActiveBill(); // Uncomment jika sudah ada endpoint tagihan aktif
   }, []);
 
   async function fetchTransactions() {
@@ -44,7 +44,12 @@ export default function PaymentPage() {
       window.snap.pay(data.transactionToken, {
         onSuccess: function (result) {
           toast.success("Payment berhasil");
-          fetchTransactions(); // Refresh setelah bayar
+          fetchTransactions();
+          // Ubah status tagihan aktif jadi Lunas!
+          setActiveBill((prev) => ({
+            ...prev,
+            status: "Lunas",
+          }));
         },
       });
     } catch (err) {
@@ -91,62 +96,7 @@ export default function PaymentPage() {
       {/* MAIN CONTENT (2 kolom di desktop, 1 kolom di mobile) */}
       <div className="md:mx-auto max-w-5xl mx-auto px-2 md:px-0 pt-28 md:pt-36 w-full">
         <div className="flex flex-col md:flex-row gap-20">
-          {/* Kolom Riwayat Transaksi */}
-          <div className="w-full md:w-2/3 order-2 md:order-1">
-            <div className="bg-white rounded-xl shadow p-4 md:p-8">
-              <div className="font-bold text-lg md:text-xl mb-6">
-                Riwayat Transaksi
-              </div>
-              <div className="space-y-4">
-                {transactions.map((tx) => (
-                  <div
-                    key={tx.id}
-                    className="rounded-xl border shadow-sm px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between bg-blue-50"
-                  >
-                    <div>
-                      <div className="font-bold text-base">{tx.month}</div>
-                      <div className="text-gray-500 text-sm mb-2">
-                        Nominal:{" "}
-                        <span className="font-semibold text-black">
-                          Rp {tx.amount.toLocaleString("id-ID")}
-                        </span>
-                      </div>
-                      <div className="text-sm mb-1">
-                        Metode: <span className="font-medium">{tx.method}</span>
-                      </div>
-                      <div className="text-xs text-gray-400">
-                        {`${new Date(tx.paidAt).toLocaleDateString("id-ID")}`}
-                      </div>
-                      <div className="text-sm font-semibold text-gray-700">
-                        No. Pembayaran:{" "}
-                        {tx.transactionId?.trim()
-                          ? tx.transactionId
-                          : `TRX-${Date.now().toString().slice(-10)}`}
-                      </div>
-                    </div>
-                    <div className="mt-2 sm:mt-0">
-                      <span
-                        className={
-                          "px-4 py-1 rounded-xl text-xs font-semibold " +
-                          (tx.paidAt
-                            ? "bg-green-500"
-                            : "bg-red-100 text-red-600")
-                        }
-                      >
-                        {tx.status}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-                {transactions.length === 0 && (
-                  <div className="text-center text-gray-400 py-6">
-                    Belum ada transaksi iuran.
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-          {/* Kolom Tagihan Aktif */}
+          {/* Kolom Tagihan Aktif - POSISI ATAS di MOBILE */}
           <div className="w-full md:w-2/3 order-1 md:order-2">
             <div className="bg-gradient-to-br from-blue-600 to-blue-400 text-white shadow-xl rounded-2xl p-7 flex flex-col items-center justify-center mb-8 md:mb-0">
               <div className="font-bold text-2xl mb-1">Tagihan Bulan Ini</div>
@@ -174,8 +124,72 @@ export default function PaymentPage() {
                   ? "Sudah Lunas"
                   : "Bayar Sekarang"}
               </button>
+              {activeBill.status === "Lunas" && (
+                <div className="text-green-100 bg-green-700/50 font-semibold mt-3 px-4 py-2 rounded-xl">
+                  Tagihan sudah dibayar ✔️
+                </div>
+              )}
               <div className="text-xs mt-2 text-white/80">
                 Gunakan tombol di atas untuk melakukan pembayaran.
+              </div>
+            </div>
+          </div>
+          {/* Kolom Riwayat Transaksi */}
+          <div className="w-full md:w-2/3 order-2 md:order-1">
+            <div className="bg-white rounded-xl shadow p-4 md:p-8">
+              <div className="font-bold text-lg md:text-xl mb-6">
+                Riwayat Transaksi
+              </div>
+              <div className="space-y-4">
+                {transactions.map((tx) => (
+                  <div
+                    key={tx.id}
+                    className="rounded-xl border shadow-sm px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between bg-blue-50"
+                  >
+                    <div>
+                      <div className="font-bold text-base">{tx.month}</div>
+                      <div className="text-gray-500 text-sm mb-2">
+                        Nominal:{" "}
+                        <span className="font-semibold text-black">
+                          Rp {tx.amount.toLocaleString("id-ID")}
+                        </span>
+                      </div>
+                      <div className="text-sm mb-1">
+                        Metode: <span className="font-medium">{tx.method}</span>
+                      </div>
+                      <div className="text-xs text-gray-400">
+                        {tx.paidAt
+                          ? `Dibayar: ${new Date(tx.paidAt).toLocaleDateString(
+                              "id-ID"
+                            )}`
+                          : "Belum dibayar"}
+                      </div>
+                      <div className="text-sm font-semibold text-gray-700">
+                        No. Pembayaran:{" "}
+                        {tx.transactionId?.trim()
+                          ? tx.transactionId
+                          : `TRX-${Date.now().toString().slice(-10)}`}
+                      </div>
+                    </div>
+                    <div className="mt-2 sm:mt-0">
+                      <span
+                        className={
+                          "px-4 py-1 rounded-xl text-xs font-semibold " +
+                          (tx.paidAt
+                            ? "bg-green-500 text-white"
+                            : "bg-red-100 text-red-600")
+                        }
+                      >
+                        {tx.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+                {transactions.length === 0 && (
+                  <div className="text-center text-gray-400 py-6">
+                    Belum ada transaksi iuran.
+                  </div>
+                )}
               </div>
             </div>
           </div>

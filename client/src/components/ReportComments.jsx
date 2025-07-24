@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import http from "../lib/http";
+import toast from "react-hot-toast";
 
 export default function ReportComments({ reportId }) {
   const [comments, setComments] = useState([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  // Fetch komentar ketika reportId berubah
   useEffect(() => {
     fetchComments();
-    // eslint-disable-next-line
   }, [reportId]);
 
   async function fetchComments() {
@@ -28,7 +26,6 @@ export default function ReportComments({ reportId }) {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!input.trim()) return;
-    setLoading(true);
     try {
       await http.post(
         `/reports/${reportId}/comments/add`,
@@ -43,22 +40,24 @@ export default function ReportComments({ reportId }) {
       );
       setInput("");
       fetchComments();
-    } finally {
-      setLoading(false);
+      toast.success("Comment added successfully.");
+    } catch (err) {
+      console.log("ERROR POST COMMENT", err);
     }
   }
 
   async function handleDelete(commentId) {
-    if (!window.confirm("Hapus komentar ini?")) return;
     try {
       await http.delete(`/reports/${reportId}/comments/${commentId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
+      toast.success("Comment deleted successfully");
       fetchComments();
     } catch (err) {
-      alert("Gagal hapus komentar.");
+      toast.
+      toast.error("Failed to remove comment.");
     }
   }
 
@@ -71,12 +70,10 @@ export default function ReportComments({ reportId }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Tulis komentar..."
-          disabled={loading}
         />
         <button
           type="submit"
           className="px-3 py-1 bg-blue-600 text-white rounded-lg text-xs font-bold disabled:opacity-50"
-          disabled={loading || !input.trim()}
         >
           Kirim
         </button>
@@ -86,11 +83,16 @@ export default function ReportComments({ reportId }) {
           <div className="text-xs text-gray-400">Belum ada komentar</div>
         )}
         {comments.map((c) => (
-          <div key={c.id} className="flex items-center gap-2 text-sm">
-            <span className="font-semibold text-blue-700">
-              {c.User?.name || "Anonim"}:
-            </span>
-            <span>{c.content}</span>
+          <div
+            key={c.id}
+            className="flex justify-between items-center text-sm mb-1"
+          >
+            <div className="flex items-center gap-2 flex-1">
+              <span className="font-semibold text-blue-700">
+                {c.User?.name || "Anonim"}:
+              </span>
+              <span>{c.content}</span>
+            </div>
             <button
               className="text-xs text-red-500 ml-2"
               onClick={() => handleDelete(c.id)}

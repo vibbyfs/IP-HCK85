@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import http from "../lib/http";
 
 export default function CitizenFormPage() {
+  const navigate = useNavigate();
   const [citizen, setCitizen] = useState({
     nationalId: "111111111111",
     fullName: "John Doe",
@@ -15,8 +16,6 @@ export default function CitizenFormPage() {
     occupation: "Programmer",
     nationality: "Indonesia",
   });
-
-  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setCitizen({ ...citizen, [e.target.name]: e.target.value });
@@ -35,7 +34,7 @@ export default function CitizenFormPage() {
         }
       );
       localStorage.removeItem("AddressId");
-      navigate("/login");
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }

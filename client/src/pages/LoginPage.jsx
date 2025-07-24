@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import http from "../lib/http";
 
 export default function LoginPage() {
@@ -19,7 +19,7 @@ export default function LoginPage() {
 
       localStorage.setItem("access_token", response.data.access_token);
 
-      navigate("/dashboard");
+      navigate("/addresses/form");
     } catch (err) {
       console.error("Login error:", err);
       const msgErr = err.response?.data?.message || "Something went wrong.";
@@ -39,7 +39,7 @@ export default function LoginPage() {
       localStorage.setItem("access_token", res.data.access_token);
 
       toast.success("Login success");
-      navigate("/dashboard");
+      navigate("/addresses/form");
     } catch (err) {
       console.log("ERROR LOGIN WITH GOOGLE", err);
     }
@@ -116,9 +116,11 @@ export default function LoginPage() {
                 Daftar di sini
               </Link>
             </p>
-            <div id="buttonDiv" className="mt-3"></div>
-          </div>
 
+            <div className="flex justify-center mt-3">
+              <div id="buttonDiv"></div>
+            </div>
+          </div>
           <div className="mt-4 text-center">
             <Link
               to="/"
