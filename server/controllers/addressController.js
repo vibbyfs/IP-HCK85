@@ -3,18 +3,21 @@ const { Address } = require('../models');
 
 class AddressController {
 
-    static async createAddress(req, res) {
+    static async createAddress(req, res, next) {
         try {
             const address = await Address.create(req.body);
 
-            res.status(201).json(address);
+            res.status(201).json({
+                id: address.id,
+                AddressId: address.id,
+                message: "Address created successfully",
+                data: address
+            });
         } catch (err) {
             console.log("ERROR CREATE ADDRESS", err);
-            res.status(500).json({ message: 'Internal server error' });
+            next(err);
         }
-    };
-
-
+    }
 }
 
 module.exports = AddressController;

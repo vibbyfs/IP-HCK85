@@ -6,13 +6,13 @@ const client = new OAuth2Client();
 
 class AuthController {
 
-    static async register(req, res) {
+    static async register(req, res, next) {
         try {
             const { name, email, password } = req.body;
 
             const user = await User.findOne({ where: { email } });
             if (user) {
-                return res.status(400).json({ message: 'Email already exists.' });
+                throw { name: 'BadRequest', message: 'Email already exists.' };
             }
             await User.create({
                 name,
@@ -25,23 +25,20 @@ class AuthController {
             });
         } catch (err) {
             console.log("ERROR REGISTER", err);
-            if (err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
-                return res.status(400).json({ message: err.errors[0].message });
-            }
-            return res.status(500).json({ message: 'Internal server error' });
+            next(err);
         }
     };
 
-    static async login(req, res) {
+    static async login(req, res, next) {
         try {
             const { email, password } = req.body;
 
             if (!email) {
-                return res.status(400).json({ message: 'Email is required.' });
+                throw { name: 'BadRequest', message: 'Email is required.' };
             }
 
             if (!password) {
-                return res.status(400).json({ message: 'Password is required.' });
+                throw { name: 'BadRequest', message: 'Password is required.' };
             }
 
             const user = await User.findOne({
@@ -49,12 +46,12 @@ class AuthController {
             });
 
             if (!user) {
-                return res.status(401).json({ message: 'Email or password is incorrect.' });
+                throw { name: 'Unauthorized', message: 'Email or password is incorrect.' };
             }
 
             const valid = comparePassword(password, user.password);
             if (!valid) {
-                return res.status(401).json({ message: 'Email or password is incorrect.' });
+                throw { name: 'Unauthorized', message: 'Email or password is incorrect.' };
             }
 
             const access_token = signToken(
@@ -72,11 +69,11 @@ class AuthController {
 
         } catch (err) {
             console.log("ERROR LOGIN", err);
-            return res.status(500).json({ message: 'Internal server error' });
+            next(err);
         }
     };
 
-    static async googleLogin(req, res) {
+    static async googleLogin(req, res, next) {
         const { id_token } = req.body
 
         try {
@@ -102,10 +99,9 @@ class AuthController {
             res.status(200).json({ access_token })
         } catch (err) {
             console.log("ERROR LOGIN WITH GOOGLE", err);
-            return res.status(500).json({ message: 'Internal server error' });
+            next(err);
         }
     }
-
 
 }
 
