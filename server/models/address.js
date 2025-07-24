@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   // allowNull: false,
   // validate: {
   //   notEmpty: true,
-  //   len: [2, 10], // ID provinsi biasanya pendek
+  //   len: [2, 10],
   // },
 },
 provinceName: {
