@@ -18,7 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notNull: {
+          msg: 'Province is required'
+        },
+        notEmpty: {
+          msg: 'Province is required'
+        },
         len: [2, 10],
       },
     },
@@ -26,7 +31,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notNull: {
+          msg: 'Province is required'
+        },
+        notEmpty: {
+          msg: 'Province is required'
+        },
         len: [2, 100],
       },
     },
@@ -34,71 +44,136 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notNull: {
+          msg: 'Regency is required'
+        },
+        notEmpty: {
+          msg: 'Regency is required'
+        },
       },
     },
     regencyName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notNull: {
+          msg: 'Regency is required'
+        },
+        notEmpty: {
+          msg: 'Regency is required'
+        },
       },
     },
     districtId: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notNull: {
+          msg: 'District is required'
+        },
+        notEmpty: {
+          msg: 'District is required'
+        },
       },
     },
     districtName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notNull: {
+          msg: 'District is required'
+        },
+        notEmpty: {
+          msg: 'District is required'
+        },
       },
     },
     villageId: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notNull: {
+          msg: 'Village is required'
+        },
+        notEmpty: {
+          msg: 'Village is required'
+        },
       },
     },
     villageName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notNull: {
+          msg: 'Village is required'
+        },
+        notEmpty: {
+          msg: 'Village is required'
+        },
       },
     },
     rt: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        is: /^[0-9]{1,3}$/,
+        notNull: {
+          msg: 'RT is required'
+        },
+        notEmpty: {
+          msg: 'RT is required'
+        },
+        is: {
+          args: /^[0-9]{1,3}$/,
+          msg: 'RT must be a number between 1 and 3 digits'
+        },
       },
     },
     rw: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        is: /^[0-9]{1,3}$/,
+        notNull: {
+          msg: 'RW is required'
+        },
+        notEmpty: {
+          msg: 'RW is required'
+        },
+        is: {
+          args: /^[0-9]{1,3}$/,
+          msg: 'RW must be a number between 1 and 3 digits'
+        },
       },
     },
     street: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        len: [5, 255],
+        notNull: {
+          msg: 'Street is required'
+        },
+        notEmpty: {
+          msg: 'Street is required'
+        },
+        len: {
+          args: [5, 255],
+          msg: 'Street must be between 5 and 255 characters long'
+        },
       },
     },
     postalCode: {
       type: DataTypes.STRING,
       allowNull: false,
+      notNull: {
+        msg: 'Postal code is required'
+      },
+      notEmpty: {
+        msg: 'Postal code is required'
+      },
       validate: {
-        is: /^[0-9]{5}$/,
+        is: {
+          args: /^[0-9]{5}$/,
+          msg: 'Postal code must be exactly 5 digits'
+        },
       },
     },
 

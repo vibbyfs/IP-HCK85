@@ -31,7 +31,7 @@ class TransactionController {
 
             const transactions = await Transaction.findAll({
                 where: { UserId: userId },
-                order: [['paidAt', 'DESC']],
+                order: [['createdAt', 'DESC']],
                 attributes: ['id', 'amount', 'transactionId', 'paidAt', 'method'],
             });
 

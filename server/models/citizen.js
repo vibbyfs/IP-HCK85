@@ -25,25 +25,50 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        notEmpty: true,
-        is: /^[0-9]{16}$/,
+        notNull: {
+          msg: 'National ID is required'
+        },
+        notEmpty: {
+          msg: 'National ID is required'
+        },
+        len: {
+          args: [16, 16],
+          msg: 'National ID must be exactly 16 characters long'
+        },
+        isNumeric: {
+          msg: 'National ID must be a numeric value'
+        },
       }
     },
     fullName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        len: [3, 100],
+        notNull: {
+          msg: 'Full name is required'
+        },
+        notEmpty: {
+          msg: 'Full name is required'
+        },
+        len: {
+          args: [3, 100],
+          msg: 'Full name must be between 3 and 100 characters long'
+        }
       }
     },
     gender: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
+        notNull: {
+          msg: 'Gender is required'
+        },
+        notEmpty: {
+          msg: 'Gender is required'
+        },
         isIn: {
           args: [['Male', 'Female', 'Other']],
-          msg: 'Jenis kelamin harus salah satu dari: Male, Female, atau Other.'
+          msg: 'Gender must be one of the following: Male, Female, or Other.'
         }
       }
 
@@ -51,38 +76,69 @@ module.exports = (sequelize, DataTypes) => {
     dateOfBirth: {
       type: DataTypes.DATEONLY,
       allowNull: false,
+      notNull: {
+        msg: 'Date of birth is required'
+      },
+      notEmpty: {
+        msg: 'Date of birth is required'
+      },
       validate: {
-        isDate: true
-      }
+        isDate: {
+          msg: 'Date of birth must be a valid date'
+        }
+      },
     },
     placeOfBirth: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notNull: {
+          msg: 'Place of birth is required'
+        },
+        notEmpty: {
+          msg: 'Place of birth is required'
+        }
       }
     },
     religion: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isIn: [['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu, Other']]
+        notNull: {
+          msg: 'Religion is required'
+        },
+        notEmpty: {
+          msg: 'Religion is required'
+        },
+        isIn: [['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Other']]
       }
     },
     maritalStatus: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
+        notNull: {
+          msg: 'Marital status is required'
+        },
+        notEmpty: {
+          msg: 'Marital status is required'
+        },
         isIn: {
           args: [['Single', 'Married', 'Divorced', 'Widowed']],
-          msg: 'Status pernikahan harus salah satu dari: Single, Married, Divorced, atau Widowed.'
         }
       }
 
     },
     bloodType: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
+        notNull: {
+          msg: 'Blood type is required'
+        },
+        notEmpty: {
+          msg: 'Blood type is required'
+        },
         isIn: [['A', 'B', 'AB', 'O']]
       }
     },
@@ -90,8 +146,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
-        len: [3, 100]
+        notNull: {
+          msg: 'Occupation is required'
+        },
+        notEmpty: {
+          msg: 'Occupation is required'
+        },
+        len: {
+          args: [3, 100],
+          msg: 'Occupation must be between 3 and 100 characters long'
+        }
       }
     },
     nationality: {
@@ -99,7 +163,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'Indonesia',
       validate: {
-        notEmpty: true
+        notNull: {
+          msg: 'Nationality is required'
+        },
+        notEmpty: {
+          msg: 'Nationality is required'
+        }
       }
     },
     AddressId: {

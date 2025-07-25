@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           msg: "Title is required"
         },
-        notNull: {
+        notEmpty: {
           msg: "Title is required"
         }
       }
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           msg: "Description is required"
         },
-        notNull: {
+        notEmpty: {
           msg: "Description is required"
         }
       }
@@ -43,39 +43,33 @@ module.exports = (sequelize, DataTypes) => {
     imageUrl: {
       type: DataTypes.TEXT,
       allowNull: true,
-      validate: {
-        isUrl: {
-          msg: "Image URL must be a valid URL"
-        }
-      }
-    },
 
+    },
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
     CategoryId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Category is required"
+        },
+        notEmpty: {
+          msg: "Category is required"
+        }
+      }
     },
-
     latitude: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        isDecimal: {
-          msg: 'Latitude must be a decimal number'
-        }
-      }
+
     },
     longitude: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        isDecimal: {
-          msg: 'Longitude must be a decimal number'
-        }
-      }
+
     }
   }, {
     sequelize,
