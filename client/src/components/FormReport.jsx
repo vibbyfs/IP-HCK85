@@ -36,7 +36,7 @@ export default function FormReport(props) {
           }
         );
 
-        toast.success("Report berhasil dikirim!");
+        toast.success("Report has been successfully submitted!");
       } else {
         await http.put(
           `/reports/${id}/update`,
@@ -52,18 +52,20 @@ export default function FormReport(props) {
             },
           }
         );
-        toast.success("Report berhasil diupdate!");
+        toast.success("Report updated successfully!");
       }
 
       navigate("/dashboard");
+
       setTitle("");
       setDescription("");
       setCategoryId("");
       setImageUrl("");
     } catch (err) {
-      const msgErr = err.response?.data?.message || "Something went wrong.";
+      const messageError =
+        err.response?.data?.message || "Something went wrong.";
       toast.dismiss();
-      toast.error(msgErr);
+      toast.error(messageError);
     }
   }
 
@@ -76,29 +78,33 @@ export default function FormReport(props) {
       });
 
       const newReport = response.data;
+
       setTitle(newReport.title);
       setDescription(newReport.description);
       setCategoryId(newReport.CategoryId);
       setImageUrl(newReport.imageUrl);
     } catch (err) {
-      const msgErr = err.response?.data?.message || "Something went wrong.";
+      const messageError =
+        err.response?.data?.message || "Something went wrong.";
       toast.dismiss();
-      toast.error(msgErr);
+      toast.error(messageError);
     }
   }
 
   async function fetchDataCategories() {
     try {
+
       const response = await http.get("/categories", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
+
       setCategories(response.data);
     } catch (err) {
-      const msgErr = err.response?.data?.message || "Something went wrong.";
+      const messageError = err.response?.data?.message || "Something went wrong.";
       toast.dismiss();
-      toast.error(msgErr);
+      toast.error(messageError);
     }
   }
 
@@ -143,13 +149,11 @@ export default function FormReport(props) {
               Silakan isi form laporan di bawah ini!
             </div>
           </div>
-          
         </div>
       </div>
 
       {/* Main Content */}
       <div className="md:ml-72 md:pl-4 max-w-4xl mx-auto px-2 md:px-0 pt-28 md:pt-36">
-        
         <form
           className="bg-white shadow-lg rounded-xl p-4 md:p-6 max-w-2xl mx-auto"
           onSubmit={handleSubmit}
@@ -173,7 +177,7 @@ export default function FormReport(props) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Judul Laporan"
-              required
+              
             />
           </div>
           {/* Deskripsi */}
@@ -186,7 +190,7 @@ export default function FormReport(props) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Jelaskan laporan kamu secara detail"
-              required
+              
             />
           </div>
           {/* Kategori */}
@@ -197,7 +201,7 @@ export default function FormReport(props) {
               name="categoryId"
               value={CategoryId}
               onChange={(e) => setCategoryId(e.target.value)}
-              required
+              
             >
               <option value="">Pilih Kategori</option>
               {categories.map((cat) => (

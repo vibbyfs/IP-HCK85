@@ -7,9 +7,10 @@ export default function ReportCard({
   description,
   imageUrl,
   createdAt,
-  onDelete,
   id,
   name,
+  status,
+  onDelete,
 }) {
   const displayName = name || "Anonim";
   const avatar = `https://ui-avatars.com/api/?name=`;
@@ -19,17 +20,18 @@ export default function ReportCard({
       {/* Tombol Edit & Delete */}
       <div className="absolute top-2 right-3 flex gap-2">
         <Link to={`/reports/${id}/edit`}>
-          <button className="bg-yellow-50 text-yellow-600 hover:bg-yellow-100 rounded px-3 py-1 text-xs font-bold shadow">
+          <button className=" text-black hover:bg-gray-100 rounded px-3 py-1 text-xs font-bold shadow">
             Edit
           </button>
         </Link>
         <button
           onClick={() => onDelete(id)}
-          className="bg-red-50 text-red-600 hover:bg-red-100 rounded px-3 py-1 text-xs font-bold shadow"
+          className=" text-black hover:bg-gray-100 rounded px-3 py-1 text-xs font-bold shadow"
         >
-          Delete
+          Hapus
         </button>
       </div>
+
       {/* Header User */}
       <div className="flex items-center mb-3">
         <img
@@ -37,13 +39,28 @@ export default function ReportCard({
           alt={name || "Anonim"}
           className="w-10 h-10 rounded-full mr-3 bg-gray-100"
         />
-        <div>
+        <div className="flex-1">
           <div className="font-semibold text-gray-800">{displayName}</div>
           <div className="text-xs text-gray-400">
             {createdAt ? new Date(createdAt).toLocaleString() : ""}
           </div>
         </div>
+        {/* Status Badge */}
+        {status && (
+          <div
+            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+              status === "Selesai"
+                ? "bg-green-100 text-green-800"
+                : status === "Dalam Proses"
+                ? "bg-yellow-100 text-yellow-800"
+                : "bg-red-100 text-red-800"
+            }`}
+          >
+            {status}
+          </div>
+        )}
       </div>
+
       {/* Image */}
       {imageUrl && (
         <div className="mb-3 rounded-xl overflow-hidden">
@@ -54,9 +71,15 @@ export default function ReportCard({
           />
         </div>
       )}
+
       {/* Title & Desc */}
       <div className="mb-3">
-        <div className="font-bold text-lg">{title}</div>
+        <div className="flex items-center justify-between mb-2">
+          <div className="font-bold text-lg">{title}</div>
+          <div className="px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white">
+            Status: Menunggu
+          </div>
+        </div>
         <div className="text-gray-700 text-sm">{description}</div>
       </div>
       <ReportComments reportId={id} />

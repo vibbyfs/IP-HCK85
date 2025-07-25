@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import http from "../lib/http";
+import toast from "react-hot-toast";
 
 export default function AddressFormPage() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function AddressFormPage() {
     provinceName: "",
     regencyId: "",
     regencyName: "",
-    districId: "",
+    districtId: "",
     districtName: "",
     villageId: "",
     villageName: "",
@@ -28,17 +29,25 @@ export default function AddressFormPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     try {
       const response = await http.post("/addresses/add", address, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
+
       const AddressId = response.data.AddressId || response.data.id;
       localStorage.setItem("AddressId", AddressId);
+      toast.success("Address added successfully!");
       navigate("/citizens/form");
     } catch (err) {
-      console.log("ERROR ADD ADDRESS");
+      console.log("ERROR ADD ADDRESS", err);
+      const messageError =
+        err.response?.data?.message ||
+        "Something went wrong while adding address";
+      toast.dismiss();
+      toast.error(messageError);
     }
   }
 
@@ -48,11 +57,14 @@ export default function AddressFormPage() {
         "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
       );
       const data = await res.json();
-      console.log(data);
 
       setRegions((prev) => ({ ...prev, provinces: data }));
     } catch (err) {
       console.log("ERROR FETCH DATA PROVINCE", err);
+      const messageError =
+        err.response?.data?.message || "Failed to fetch provinces";
+      toast.dismiss();
+      toast.error(messageError);
     }
   }
 
@@ -62,11 +74,14 @@ export default function AddressFormPage() {
         `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
       );
       const data = await res.json();
-      console.log(data);
 
       setRegions((prev) => ({ ...prev, regencies: data }));
     } catch (err) {
       console.log("ERROR FETCH DATA REGENCIES", err);
+      const messageError =
+        err.response?.data?.message || "Failed to fetch regencies";
+      toast.dismiss();
+      toast.error(messageError);
     }
   }
 
@@ -76,25 +91,31 @@ export default function AddressFormPage() {
         `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${regencyId}.json`
       );
       const data = await res.json();
-      console.log(data);
 
       setRegions((prev) => ({ ...prev, districts: data }));
     } catch (err) {
       console.log("ERROR FETCH DATA DSITRICTS", err);
+      const messageError =
+        err.response?.data?.message || "Failed to fetch districts";
+      toast.dismiss();
+      toast.error(messageError);
     }
   }
 
-  async function fetchVilages(districtId) {
+  async function fetchVillages(districtId) {
     try {
       const res = await fetch(
-        `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${districtId}.jsonhttps://wilayah.id/api/provinces.json`
+        `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${districtId}.json`
       );
       const data = await res.json();
-      console.log(data);
 
       setRegions((prev) => ({ ...prev, villages: data }));
     } catch (err) {
       console.log("ERROR FETCH DATA VILLAGES", err);
+      const messageError =
+        err.response?.data?.message || "Failed to fetch villages";
+      toast.dismiss();
+      toast.error(messageError);
     }
   }
 
@@ -122,38 +143,137 @@ export default function AddressFormPage() {
             Form Alamat
           </h2>
           <div className="space-y-3">
-            <input
+            {/* Provinsi */}
+            <select
               className="input w-full"
-              placeholder="Provinsi"
-              value={address.provinceName}
-              onChange={(e) =>
-                setAddress((a) => ({ ...a, provinceName: e.target.value }))
-              }
-            />
-            <input
+              value={address.provinceId}
+              onChange={(e) => {
+                const selectedProvince = regions.provinces.find(
+                  (p) => p.id === e.target.value
+                );
+                setAddress((a) => ({
+                  ...a,
+                  provinceId: e.target.value,
+                  provinceName: selectedProvince ? selectedProvince.name : "",
+                  regencyId: "",
+                  regencyName: "",
+                  districtId: "",
+                  districtName: "",
+                  villageId: "",
+                  villageName: "",
+                }));
+                setRegions((prev) => ({
+                  ...prev,
+                  regencies: [],
+                  districts: [],
+                  villages: [],
+                }));
+                if (e.target.value) {
+                  fetchRegencies(e.target.value);
+                }
+              }}
+            >
+              <option value="">Pilih Provinsi</option>
+              {regions.provinces.map((province) => (
+                <option key={province.id} value={province.id}>
+                  {province.name}
+                </option>
+              ))}
+            </select>
+
+            {/* Kabupaten/Kota */}
+            <select
               className="input w-full"
-              placeholder="Kabupaten/Kota"
-              value={address.regencyName}
-              onChange={(e) =>
-                setAddress((a) => ({ ...a, regencyName: e.target.value }))
-              }
-            />
-            <input
+              value={address.regencyId}
+              onChange={(e) => {
+                const selectedRegency = regions.regencies.find(
+                  (r) => r.id === e.target.value
+                );
+                setAddress((a) => ({
+                  ...a,
+                  regencyId: e.target.value,
+                  regencyName: selectedRegency ? selectedRegency.name : "",
+                  districtId: "",
+                  districtName: "",
+                  villageId: "",
+                  villageName: "",
+                }));
+                setRegions((prev) => ({
+                  ...prev,
+                  districts: [],
+                  villages: [],
+                }));
+                if (e.target.value) {
+                  fetchDistricts(e.target.value);
+                }
+              }}
+              disabled={!address.provinceId}
+            >
+              <option value="">Pilih Kabupaten/Kota</option>
+              {regions.regencies.map((regency) => (
+                <option key={regency.id} value={regency.id}>
+                  {regency.name}
+                </option>
+              ))}
+            </select>
+
+            {/* Kecamatan */}
+            <select
               className="input w-full"
-              placeholder="Kecamatan"
-              value={address.districtName}
-              onChange={(e) =>
-                setAddress((a) => ({ ...a, districtName: e.target.value }))
-              }
-            />
-            <input
+              value={address.districtId}
+              onChange={(e) => {
+                const selectedDistrict = regions.districts.find(
+                  (d) => d.id === e.target.value
+                );
+                setAddress((a) => ({
+                  ...a,
+                  districtId: e.target.value,
+                  districtName: selectedDistrict ? selectedDistrict.name : "",
+                  villageId: "",
+                  villageName: "",
+                }));
+                setRegions((prev) => ({
+                  ...prev,
+                  villages: [],
+                }));
+                if (e.target.value) {
+                  fetchVillages(e.target.value);
+                }
+              }}
+              disabled={!address.regencyId}
+            >
+              <option value="">Pilih Kecamatan</option>
+              {regions.districts.map((district) => (
+                <option key={district.id} value={district.id}>
+                  {district.name}
+                </option>
+              ))}
+            </select>
+
+            {/* Kelurahan/Desa */}
+            <select
               className="input w-full"
-              placeholder="Kelurahan/Desa"
-              value={address.villageName}
-              onChange={(e) =>
-                setAddress((a) => ({ ...a, villageName: e.target.value }))
-              }
-            />
+              value={address.villageId}
+              onChange={(e) => {
+                const selectedVillage = regions.villages.find(
+                  (v) => v.id === e.target.value
+                );
+                setAddress((a) => ({
+                  ...a,
+                  villageId: e.target.value,
+                  villageName: selectedVillage ? selectedVillage.name : "",
+                }));
+              }}
+              disabled={!address.districtId}
+            >
+              <option value="">Pilih Kelurahan/Desa</option>
+              {regions.villages.map((village) => (
+                <option key={village.id} value={village.id}>
+                  {village.name}
+                </option>
+              ))}
+            </select>
+
             <div className="flex gap-3">
               <input
                 className="input w-1/2"

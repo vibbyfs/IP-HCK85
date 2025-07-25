@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import http from "../lib/http";
+import toast from "react-hot-toast";
 
 export default function CitizenFormPage() {
   const navigate = useNavigate();
@@ -33,10 +34,17 @@ export default function CitizenFormPage() {
           },
         }
       );
+
       localStorage.removeItem("AddressId");
+
+      toast.success("Citizen data saved successfully!");
       navigate("/dashboard");
     } catch (err) {
-      console.log(err);
+      console.log("ERROR POST CITIZEN", err);
+      const messageError =
+        err.response?.data?.message || "Failed to save citizen data";
+      toast.dismiss();
+      toast.error(messageError);
     }
   };
 
@@ -81,8 +89,9 @@ export default function CitizenFormPage() {
               onChange={handleChange}
             >
               <option value="">Pilih Jenis Kelamin</option>
-              <option value="L">Laki-laki</option>
-              <option value="P">Perempuan</option>
+              <option value="Male">Laki-laki</option>
+              <option value="Female">Perempuan</option>
+              <option value="Other">Other</option>
             </select>
             <input
               className="input w-full"
@@ -99,27 +108,48 @@ export default function CitizenFormPage() {
               value={citizen.placeOfBirth}
               onChange={handleChange}
             />
-            <input
-              className="input w-full"
+            <select
               name="religion"
-              placeholder="Agama"
+              id="religion"
               value={citizen.religion}
               onChange={handleChange}
-            />
-            <input
               className="input w-full"
+            >
+              <option value="">Pilih Agama</option>
+              <option value="Islam">Islam</option>
+              <option value="Kristen">Kristen</option>
+              <option value="Katolik">Katolik</option>
+              <option value="Hindu">Hindu</option>
+              <option value="Buddha">Buddha</option>
+              <option value="Konghucu">Konghucu</option>
+              <option value="Other">Other</option>
+            </select>
+            <select
               name="maritalStatus"
-              placeholder="Status Perkawinan"
+              id="maritalStatus"
               value={citizen.maritalStatus}
               onChange={handleChange}
-            />
-            <input
               className="input w-full"
+            >
+              <option value="">Pilih Status Perkawinan</option>
+              <option value="Single">Belum Menikah</option>
+              <option value="Married">Menikah</option>
+              <option value="Divorced">Bercerai</option>
+              <option value="Widowed">Duda/Janda</option>
+            </select>
+            <select
               name="bloodType"
-              placeholder="Golongan Darah"
+              id="bloodType"
               value={citizen.bloodType}
               onChange={handleChange}
-            />
+              className="input w-full"
+            >
+              <option value="">Pilih Golongan Darah</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O">O</option>
+            </select>
             <input
               className="input w-full"
               name="occupation"

@@ -21,7 +21,6 @@ export default function RightSidebar({ mobile }) {
     },
   ];
 
-  // Newsletter Card (bisa juga di-array kalau mau banyak newsletter)
   const newsletter = (
     <div className="p-4 bg-gray-100 rounded-lg min-w-[85vw] md:min-w-0 mb-0">
       <h3 className="font-bold mb-2 text-lg">Newsletter RT</h3>
@@ -103,6 +102,7 @@ export default function RightSidebar({ mobile }) {
   // Desktop
   return (
     <aside className="hidden md:block fixed top-32 right-0 h-[calc(100vh-10rem)] w-2/6 border-l p-6 z-20 overflow-y-auto bg-white">
+      
       {/* Filter & Search */}
       <div className="mb-6">
         <h3 className="font-bold top-0 mb-3 text-lg">Cari & Filter</h3>

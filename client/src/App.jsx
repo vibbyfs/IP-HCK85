@@ -14,8 +14,8 @@ import CreateReportPage from "./pages/CreateReportPage";
 import EditReportPage from "./pages/EditReportPage";
 import ReportAudioUploadPage from "./pages/ReportAudioPage";
 import ConfirmAudioReportPage from "./pages/ConfirmAudioReportPage";
-import AuthLayout from "./layout/AuthLayout";
-import ProtectedLayout from "./layout/ProtectedLayout";
+import AuthLayout from "./Layout/AuthLayout";
+import ProtectedLayout from "./Layout/ProtectedLayout";
 
 function App() {
   function MainLayout() {
@@ -34,7 +34,6 @@ function App() {
       <BrowserRouter>
         <Toaster position="top-right" />
         <Routes>
-          {/* Public route */}
           <Route element={<MainLayout />}>
             <Route path="/" element={<LandingPage />} />
           </Route>

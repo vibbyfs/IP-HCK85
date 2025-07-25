@@ -1,5 +1,11 @@
 import MarqueeText from "../components/MarqueeText";
 import Navbar from "../components/Navbar";
+import reportImage from "../assets/image/report.png";
+import discussionImage from "../assets/image/discussion.png";
+import statisticImage from "../assets/image/statistic.png";
+import notificationImage from "../assets/image/notification.png";
+import mapImage from "../assets/image/map.png";
+import projectPlanImage from "../assets/image/project-plan.png";
 
 export default function LandingPage() {
   return (
@@ -8,26 +14,29 @@ export default function LandingPage() {
         <section className="hero-gradient text-white pb-16 md:pb-24">
           <div className="container mx-auto px-4 pt-12">
             <div className="flex flex-col md:flex-row items-center">
-     
               <div className="md:w-1/2 mb-8 md:mb-0">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
                   Laporkan Masalah Lingkungan RT Lebih Mudah & Cepat
                 </h1>
                 <p className="text-lg mb-6">
-                  RT Care membantu warga melaporkan masalah seperti kebersihan,
+                  rt care membantu warga melaporkan masalah seperti kebersihan,
                   keamanan, dan fasilitas umum langsung ke pengurus RT secara
                   online.
                 </p>
                 <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
                   <a
                     href="#daftar"
-                    className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 text-center"
+                    className="bg-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 text-center"
+                    style={{ color: "#354EAD" }}
                   >
                     Mulai Laporkan
                   </a>
                   <a
                     href="#demo"
-                    className="border-2 border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white hover:text-blue-600 text-center"
+                    className="border-2 border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white text-center"
+                    style={{ "&:hover": { color: "#354EAD" } }}
+                    onMouseEnter={(e) => (e.target.style.color = "#354EAD")}
+                    onMouseLeave={(e) => (e.target.style.color = "white")}
                   >
                     Lihat Demo
                   </a>
@@ -35,7 +44,7 @@ export default function LandingPage() {
               </div>
               <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
                 <img
-                  src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ece2d77d-7b28-497e-8ca1-7ffa131b4e8c.png"
+                  src={reportImage}
                   alt="Ilustrasi warga sedang menggunakan aplikasi mobile di smartphone untuk melaporkan masalah lingkungan sekitar RT"
                   className="rounded-lg shadow-xl"
                 />
@@ -55,70 +64,136 @@ export default function LandingPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <i className="fas fa-bell text-blue-600 text-2xl" />
+                <div
+                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: "#354EAD20" }}
+                >
+                  <i
+                    className="fas fa-bell text-2xl"
+                    style={{ color: "#354EAD" }}
+                  />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">
                   Pelaporan Real-time
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 mb-4">
                   Laporkan masalah langsung dari lokasi dengan lampiran foto dan
                   lokasi GPS. Status laporan dapat dimonitor secara real-time.
                 </p>
+                <img
+                  src={reportImage}
+                  alt="Ilustrasi pelaporan real-time dengan smartphone dan notifikasi"
+                  className="rounded-md mx-auto w-full max-w-xs"
+                />
               </div>
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <i className="fas fa-users text-blue-600 text-2xl" />
+                <div
+                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: "#354EAD20" }}
+                >
+                  <i
+                    className="fas fa-users text-2xl"
+                    style={{ color: "#354EAD" }}
+                  />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Forum Diskusi RT</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 mb-4">
                   Diskusikan masalah lingkungan bersama warga dan pengurus RT
                   dalam forum yang aman dan terorganisir.
                 </p>
+                <img
+                  src={discussionImage}
+                  alt="Ilustrasi forum diskusi online dengan grup people dan chat bubbles"
+                  className="rounded-md mx-auto w-full max-w-xs"
+                />
               </div>
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <i className="fas fa-chart-line text-blue-600 text-2xl" />
+                <div
+                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: "#354EAD20" }}
+                >
+                  <i
+                    className="fas fa-chart-line text-2xl"
+                    style={{ color: "#354EAD" }}
+                  />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">
                   Statistik Lingkungan
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 mb-4">
                   Pantau statistik masalah yang sering terjadi di lingkungan
                   Anda dan solusi apa yang telah dilakukan.
                 </p>
+                <img
+                  src={statisticImage}
+                  alt="Ilustrasi dashboard statistik dengan chart dan grafik data"
+                  className="rounded-md mx-auto w-full max-w-xs"
+                />
               </div>
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <i className="fas fa-envelope text-blue-600 text-2xl" />
+                <div
+                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: "#354EAD20" }}
+                >
+                  <i
+                    className="fas fa-envelope text-2xl"
+                    style={{ color: "#354EAD" }}
+                  />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">
                   Notifikasi Otomatis
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 mb-4">
                   Dapatkan pemberitahuan via aplikasi atau SMS saat laporan Anda
                   ditanggapi atau ada pengumuman penting.
                 </p>
+                <img
+                  src={notificationImage}
+                  alt="Ilustrasi notifikasi smartphone dengan bell icon dan pesan"
+                  className="rounded-md mx-auto w-full max-w-xs"
+                />
               </div>
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <i className="fas fa-map-marked-alt text-blue-600 text-2xl" />
+                <div
+                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: "#354EAD20" }}
+                >
+                  <i
+                    className="fas fa-map-marked-alt text-2xl"
+                    style={{ color: "#354EAD" }}
+                  />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Peta Interaktif</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 mb-4">
                   Lihat masalah yang dilaporkan di peta RT dan RW Anda untuk
                   mendapatkan gambaran visual daerah yang bermasalah.
                 </p>
+                <img
+                  src={mapImage}
+                  alt="Ilustrasi peta interaktif dengan pin lokasi dan marker"
+                  className="rounded-md mx-auto w-full max-w-xs"
+                />
               </div>
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <i className="fas fa-tasks text-blue-600 text-2xl" />
+                <div
+                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: "#354EAD20" }}
+                >
+                  <i
+                    className="fas fa-tasks text-2xl"
+                    style={{ color: "#354EAD" }}
+                  />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Manajemen Tugas</h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 mb-4">
                   Pengurus RT dapat membagi tugas penanganan masalah ke petugas
                   yang berbeda dan melacak progresnya.
                 </p>
+                <img
+                  src={projectPlanImage}
+                  alt="Ilustrasi manajemen tugas dengan checklist dan timeline"
+                  className="rounded-md mx-auto w-full max-w-xs"
+                />
               </div>
             </div>
           </div>
@@ -137,7 +212,10 @@ export default function LandingPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                <div
+                  className="w-16 h-16 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold"
+                  style={{ backgroundColor: "#354EAD" }}
+                >
                   1
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Buat Laporan</h3>
@@ -152,7 +230,10 @@ export default function LandingPage() {
                 />
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                <div
+                  className="w-16 h-16 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold"
+                  style={{ backgroundColor: "#354EAD" }}
+                >
                   2
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Verifikasi RT</h3>
@@ -167,7 +248,10 @@ export default function LandingPage() {
                 />
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                <div
+                  className="w-16 h-16 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold"
+                  style={{ backgroundColor: "#354EAD" }}
+                >
                   3
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Tindak Lanjut</h3>

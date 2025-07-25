@@ -17,6 +17,7 @@ export default function ReportComments({ reportId }) {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
+
       setComments(res.data);
     } catch (err) {
       setComments([]);
@@ -25,6 +26,7 @@ export default function ReportComments({ reportId }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     if (!input.trim()) return;
     try {
       await http.post(
@@ -38,11 +40,16 @@ export default function ReportComments({ reportId }) {
           },
         }
       );
+
       setInput("");
       fetchComments();
       toast.success("Comment added successfully.");
     } catch (err) {
       console.log("ERROR POST COMMENT", err);
+      const messageError =
+        err.response?.data?.message || "Failed to add comment";
+      toast.dismiss();
+      toast.error(messageError);
     }
   }
 
@@ -53,17 +60,22 @@ export default function ReportComments({ reportId }) {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
+
       toast.success("Comment deleted successfully");
       fetchComments();
     } catch (err) {
-      toast.
-      toast.error("Failed to remove comment.");
+      console.log("ERROR DELETE COMMENT", err);
+      const messageError =
+        err.response?.data?.message || "Failed to delete comment";
+      toast.dismiss();
+      toast.error(messageError);
     }
   }
 
   return (
     <div className="mt-4">
       <div className="text-sm font-semibold mb-2 text-gray-700">Komentar</div>
+
       <form onSubmit={handleSubmit} className="flex gap-2 mb-3">
         <input
           className="input flex-1 text-sm"
@@ -93,13 +105,15 @@ export default function ReportComments({ reportId }) {
               </span>
               <span>{c.content}</span>
             </div>
+
             <button
-              className="text-xs text-red-500 ml-2"
+              className="text-xs text-blue-600 ml-2"
               onClick={() => handleDelete(c.id)}
               title="Hapus komentar"
             >
               Hapus
             </button>
+            
           </div>
         ))}
       </div>

@@ -9,6 +9,7 @@ export default function CommentList({ comments = [], reportId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return;
+
     try {
       const res = await http.post(
         `/reports/${reportId}/comments`,
@@ -19,18 +20,23 @@ export default function CommentList({ comments = [], reportId }) {
           },
         }
       );
+
       toast.success("Comment added successfully");
       setAllComments([...allComments, res.data.comment]);
       setNewComment("");
     } catch (err) {
       console.log("ERROR COMMENT", err);
-      toast.error("Failed to add comment");
+      const messageError =
+        err.response?.data?.message || "Failed to add comment";
+      toast.dismiss();
+      toast.error(messageError);
     }
   };
 
   return (
     <div>
       <div className="max-h-32 overflow-y-auto space-y-1 mb-1">
+
         {allComments.length === 0 ? (
           <div className="text-xs text-gray-400">Belum ada komentar.</div>
         ) : (
@@ -44,6 +50,7 @@ export default function CommentList({ comments = [], reportId }) {
           ))
         )}
       </div>
+      
       <form onSubmit={handleSubmit} className="flex gap-2 mt-2">
         <input
           className="input flex-1 text-xs"

@@ -16,7 +16,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white shadow">
       <MarqueeText>Info: Iuran jatuh tempo tanggal 10 tiap bulan!</MarqueeText>
       <nav className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-        <div className="text-2xl font-bold text-blue-600">RT Care</div>
+        <div className="text-4xl font-bold text-blue-600">rt care</div>
 
         <div className="hidden md:flex items-center space-x-6">
           {links.map((link) => (

@@ -22,7 +22,6 @@ export default function ProtectedLayout() {
       });
       setCitizenData(response.data);
     } catch (error) {
-      // User belum memiliki data citizen/address
       setCitizenData(null);
     } finally {
       setLoading(false);
@@ -42,14 +41,19 @@ export default function ProtectedLayout() {
   }
 
   const currentPath = window.location.pathname;
-  
-  // Jika user sudah memiliki data citizen/address dan mencoba mengakses form, arahkan ke dashboard
-  if (citizenData && (currentPath === "/addresses/form" || currentPath === "/citizens/form")) {
+
+  if (
+    citizenData &&
+    (currentPath === "/addresses/form" || currentPath === "/citizens/form")
+  ) {
     return <Navigate to="/dashboard" />;
   }
 
-  // Jika user belum memiliki data citizen/address dan bukan di form pages, arahkan ke form address
-  if (!citizenData && currentPath !== "/addresses/form" && currentPath !== "/citizens/form") {
+  if (
+    !citizenData &&
+    currentPath !== "/addresses/form" &&
+    currentPath !== "/citizens/form"
+  ) {
     return <Navigate to="/addresses/form" />;
   }
 
