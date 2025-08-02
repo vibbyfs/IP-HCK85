@@ -10,13 +10,6 @@ export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [reports, setReports] = useState([]);
   const loggedInUserId = parseInt(localStorage.getItem("UserId"));
-  
-  // Debug log
-  console.log("DashboardPage Debug:", {
-    loggedInUserId,
-    userIdFromStorage: localStorage.getItem("UserId"),
-    type: typeof loggedInUserId
-  });
 
   async function fetchDataReports() {
     try {
@@ -25,6 +18,7 @@ export default function DashboardPage() {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
+console.log(response.data);
 
       setReports(response.data);
     } catch (err) {

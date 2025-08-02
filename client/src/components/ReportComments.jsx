@@ -6,6 +6,10 @@ export default function ReportComments({ reportId }) {
   const [comments, setComments] = useState([]);
   const [input, setInput] = useState("");
   const loggedInUserId = parseInt(localStorage.getItem("UserId"));
+  const [showAllComments, setShowAllComments] = useState(false);
+
+  const displayComments = showAllComments ? comments : comments.slice(0, 1);
+  const hasMoreComments = comments.length > 1;
 
   useEffect(() => {
     fetchComments();
@@ -95,7 +99,7 @@ export default function ReportComments({ reportId }) {
         {comments.length === 0 && (
           <div className="text-xs text-gray-400">Belum ada komentar</div>
         )}
-        {comments.map((c) => {
+        {displayComments.map((c) => {
           // Debug log untuk komentar
           console.log("Comment Debug:", {
             commentId: c.id,
@@ -103,9 +107,9 @@ export default function ReportComments({ reportId }) {
             loggedInUserId,
             canDelete: c.UserId === loggedInUserId,
             commentUserIdType: typeof c.UserId,
-            loggedInUserIdType: typeof loggedInUserId
+            loggedInUserIdType: typeof loggedInUserId,
           });
-          
+
           return (
             <div
               key={c.id}
@@ -130,6 +134,17 @@ export default function ReportComments({ reportId }) {
             </div>
           );
         })}
+
+        {hasMoreComments && (
+          <button
+            onClick={() => setShowAllComments(!showAllComments)}
+            className="text-xs text-blue-600 hover:text-blue-800 mt-2"
+          >
+            {showAllComments
+              ? `Sembunyikan ${comments.length - 1} komentar lain`
+              : `Lihat ${comments.length - 1} komentar lain`}
+          </button>
+        )}
       </div>
     </div>
   );

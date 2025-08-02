@@ -7,10 +7,10 @@ export default function ReportCard({
   description,
   imageUrl,
   createdAt,
+  status,
   id,
   name,
   UserId,
-  status,
   onDelete,
   currentUserId,
 }) {
@@ -34,8 +34,23 @@ export default function ReportCard({
               {createdAt ? new Date(createdAt).toLocaleString() : ""}
             </span>
           </p>
-          <p className="text-sm text-gray-500 mb-3">
-            Status: <span className="font-medium">{status || "Menunggu"}</span>
+          <p className="text-sm mb-3">
+            Status:{" "}
+            <span
+              className={`font-semibold px-2 py-1 rounded-md
+      ${
+        status === "Belum Diproses"
+          ? "bg-yellow-100 text-yellow-800"
+          : status === "Dalam Proses"
+          ? "bg-blue-100 text-blue-800"
+          : status === "Sudah Selesai"
+          ? "bg-green-100 text-green-800"
+          : "bg-gray-100 text-gray-800"
+      }
+    `}
+            >
+              {status}
+            </span>
           </p>
 
           {/* Tombol Edit & Delete */}
