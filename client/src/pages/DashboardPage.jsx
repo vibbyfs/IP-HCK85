@@ -9,6 +9,14 @@ import { Navigate } from "react-router";
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [reports, setReports] = useState([]);
+  const loggedInUserId = parseInt(localStorage.getItem("UserId"));
+  
+  // Debug log
+  console.log("DashboardPage Debug:", {
+    loggedInUserId,
+    userIdFromStorage: localStorage.getItem("UserId"),
+    type: typeof loggedInUserId
+  });
 
   async function fetchDataReports() {
     try {
@@ -17,8 +25,6 @@ export default function DashboardPage() {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
-
-      console.log(response);
 
       setReports(response.data);
     } catch (err) {
@@ -101,6 +107,7 @@ export default function DashboardPage() {
               key={i}
               {...report}
               name={report.User?.name}
+              currentUserId={loggedInUserId}
               onDelete={handleDelete}
             />
           ))}
@@ -147,7 +154,7 @@ export default function DashboardPage() {
               />
             </svg>
           </button>
-          
+
           {/* Konten Sidebar */}
           <div className="mt-12">
             <SidebarDashboard />

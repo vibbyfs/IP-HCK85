@@ -17,9 +17,12 @@ export default function LoginPage() {
         password,
       });
 
+      console.log("Login response:", response.data);
       localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("UserId", response.data.user.id);
+      console.log("UserId stored:", response.data.user.id);
 
-      navigate("/addresses/form");
+      navigate("/addresses-form");
     } catch (err) {
       console.error("Login error:", err);
       const msgErr = err.response?.data?.message || "Something went wrong.";
@@ -37,9 +40,12 @@ export default function LoginPage() {
       });
 
       localStorage.setItem("access_token", res.data.access_token);
+      if (res.data.user) {
+        localStorage.setItem("UserId", res.data.user.id);
+      }
 
       toast.success("Login success");
-      navigate("/addresses/form");
+      navigate("/addresses-form");
     } catch (err) {
       console.log("ERROR LOGIN WITH GOOGLE", err);
     }

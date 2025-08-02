@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 export default function ReportComments({ reportId }) {
   const [comments, setComments] = useState([]);
   const [input, setInput] = useState("");
+  const loggedInUserId = parseInt(localStorage.getItem("UserId"));
 
   useEffect(() => {
     fetchComments();
@@ -94,28 +95,41 @@ export default function ReportComments({ reportId }) {
         {comments.length === 0 && (
           <div className="text-xs text-gray-400">Belum ada komentar</div>
         )}
-        {comments.map((c) => (
-          <div
-            key={c.id}
-            className="flex justify-between items-center text-sm mb-1"
-          >
-            <div className="flex items-center gap-2 flex-1">
-              <span className="font-semibold text-blue-700">
-                {c.User?.name || "Anonim"}:
-              </span>
-              <span>{c.content}</span>
-            </div>
-
-            <button
-              className="text-xs text-blue-600 ml-2"
-              onClick={() => handleDelete(c.id)}
-              title="Hapus komentar"
+        {comments.map((c) => {
+          // Debug log untuk komentar
+          console.log("Comment Debug:", {
+            commentId: c.id,
+            commentUserId: c.UserId,
+            loggedInUserId,
+            canDelete: c.UserId === loggedInUserId,
+            commentUserIdType: typeof c.UserId,
+            loggedInUserIdType: typeof loggedInUserId
+          });
+          
+          return (
+            <div
+              key={c.id}
+              className="flex justify-between items-center text-sm mb-1"
             >
-              Hapus
-            </button>
-            
-          </div>
-        ))}
+              <div className="flex items-center gap-2 flex-1">
+                <span className="font-semibold text-blue-700">
+                  {c.User?.name || "Anonim"}:
+                </span>
+                <span>{c.content}</span>
+              </div>
+
+              {c.UserId === loggedInUserId && (
+                <button
+                  className="text-xs text-blue-600 ml-2"
+                  onClick={() => handleDelete(c.id)}
+                  title="Hapus komentar"
+                >
+                  Hapus
+                </button>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export default function RegisterPage() {
         password,
       });
 
-      navigate("/addresses/form");
+      navigate("/addresses-form");
       toast.success(
         "Registration successful. Please fill out your personal data."
       );

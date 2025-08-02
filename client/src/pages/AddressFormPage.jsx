@@ -40,7 +40,7 @@ export default function AddressFormPage() {
       const AddressId = response.data.AddressId || response.data.id;
       localStorage.setItem("AddressId", AddressId);
       toast.success("Address added successfully!");
-      navigate("/citizens/form");
+      navigate("/citizens-form");
     } catch (err) {
       console.log("ERROR ADD ADDRESS", err);
       const messageError =

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-    baseURL: "https://gc-01.vibbyfs.web.id",
+    baseURL: "http://localhost:3000",
 })
 
 export default http;

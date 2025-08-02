@@ -6,6 +6,7 @@ import statisticImage from "../assets/image/statistic.png";
 import notificationImage from "../assets/image/notification.png";
 import mapImage from "../assets/image/map.png";
 import projectPlanImage from "../assets/image/project-plan.png";
+import { Link } from "react-router";
 
 export default function LandingPage() {
   return (
@@ -24,13 +25,14 @@ export default function LandingPage() {
                   online.
                 </p>
                 <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-                  <a
-                    href="#daftar"
+                  <Link
+                    to="/register"
                     className="bg-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 text-center"
                     style={{ color: "#354EAD" }}
                   >
                     Mulai Laporkan
-                  </a>
+                  </Link>
+
                   <a
                     href="#demo"
                     className="border-2 border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white text-center"
@@ -53,6 +55,7 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* FITUR UNGGULAN */}
         <section id="fitur" className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
@@ -62,12 +65,15 @@ export default function LandingPage() {
                 antara warga dan pengurus RT
               </p>
             </div>
+            {/* PELAPORAN REAL TIME */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div
-                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
-                  style={{ backgroundColor: "#354EAD20" }}
-                >
+                <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                  <img
+                    src={reportImage}
+                    alt="Ilustrasi pelaporan real-time dengan smartphone dan notifikasi"
+                    className="rounded-md mx-auto w-full max-w-xs"
+                  />
                   <i
                     className="fas fa-bell text-2xl"
                     style={{ color: "#354EAD" }}
@@ -80,17 +86,16 @@ export default function LandingPage() {
                   Laporkan masalah langsung dari lokasi dengan lampiran foto dan
                   lokasi GPS. Status laporan dapat dimonitor secara real-time.
                 </p>
-                <img
-                  src={reportImage}
-                  alt="Ilustrasi pelaporan real-time dengan smartphone dan notifikasi"
-                  className="rounded-md mx-auto w-full max-w-xs"
-                />
               </div>
+
+              {/* FORUM DISKUSI RT */}
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div
-                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
-                  style={{ backgroundColor: "#354EAD20" }}
-                >
+                <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                  <img
+                    src={discussionImage}
+                    alt="Ilustrasi forum diskusi online dengan grup people dan chat bubbles"
+                    className="rounded-md mx-auto w-full max-w-xs"
+                  />
                   <i
                     className="fas fa-users text-2xl"
                     style={{ color: "#354EAD" }}
@@ -101,17 +106,16 @@ export default function LandingPage() {
                   Diskusikan masalah lingkungan bersama warga dan pengurus RT
                   dalam forum yang aman dan terorganisir.
                 </p>
-                <img
-                  src={discussionImage}
-                  alt="Ilustrasi forum diskusi online dengan grup people dan chat bubbles"
-                  className="rounded-md mx-auto w-full max-w-xs"
-                />
               </div>
+
+              {/* STATISTIKA LINGKUNGAN */}
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div
-                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
-                  style={{ backgroundColor: "#354EAD20" }}
-                >
+                <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                  <img
+                    src={statisticImage}
+                    alt="Ilustrasi dashboard statistik dengan chart dan grafik data"
+                    className="rounded-md mx-auto w-full max-w-xs"
+                  />
                   <i
                     className="fas fa-chart-line text-2xl"
                     style={{ color: "#354EAD" }}
@@ -124,17 +128,15 @@ export default function LandingPage() {
                   Pantau statistik masalah yang sering terjadi di lingkungan
                   Anda dan solusi apa yang telah dilakukan.
                 </p>
-                <img
-                  src={statisticImage}
-                  alt="Ilustrasi dashboard statistik dengan chart dan grafik data"
-                  className="rounded-md mx-auto w-full max-w-xs"
-                />
               </div>
+              {/* NOTIFIKASI OTOMATIS */}
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div
-                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
-                  style={{ backgroundColor: "#354EAD20" }}
-                >
+                <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                  <img
+                    src={notificationImage}
+                    alt="Ilustrasi notifikasi smartphone dengan bell icon dan pesan"
+                    className="rounded-md mx-auto w-full max-w-xs"
+                  />
                   <i
                     className="fas fa-envelope text-2xl"
                     style={{ color: "#354EAD" }}
@@ -147,17 +149,16 @@ export default function LandingPage() {
                   Dapatkan pemberitahuan via aplikasi atau SMS saat laporan Anda
                   ditanggapi atau ada pengumuman penting.
                 </p>
-                <img
-                  src={notificationImage}
-                  alt="Ilustrasi notifikasi smartphone dengan bell icon dan pesan"
-                  className="rounded-md mx-auto w-full max-w-xs"
-                />
               </div>
+
+              {/* PETA INTERAKTIF */}
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div
-                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
-                  style={{ backgroundColor: "#354EAD20" }}
-                >
+                <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                  <img
+                    src={mapImage}
+                    alt="Ilustrasi peta interaktif dengan pin lokasi dan marker"
+                    className="rounded-md mx-auto w-full max-w-xs"
+                  />
                   <i
                     className="fas fa-map-marked-alt text-2xl"
                     style={{ color: "#354EAD" }}
@@ -168,17 +169,15 @@ export default function LandingPage() {
                   Lihat masalah yang dilaporkan di peta RT dan RW Anda untuk
                   mendapatkan gambaran visual daerah yang bermasalah.
                 </p>
-                <img
-                  src={mapImage}
-                  alt="Ilustrasi peta interaktif dengan pin lokasi dan marker"
-                  className="rounded-md mx-auto w-full max-w-xs"
-                />
               </div>
+              {/* MANAJEMEN TUGAS */}
               <div className="feature-card bg-gray-50 p-6 rounded-xl transition duration-300">
-                <div
-                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
-                  style={{ backgroundColor: "#354EAD20" }}
-                >
+                <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                  <img
+                    src={projectPlanImage}
+                    alt="Ilustrasi manajemen tugas dengan checklist dan timeline"
+                    className="rounded-md mx-auto w-full max-w-xs"
+                  />
                   <i
                     className="fas fa-tasks text-2xl"
                     style={{ color: "#354EAD" }}
@@ -189,11 +188,6 @@ export default function LandingPage() {
                   Pengurus RT dapat membagi tugas penanganan masalah ke petugas
                   yang berbeda dan melacak progresnya.
                 </p>
-                <img
-                  src={projectPlanImage}
-                  alt="Ilustrasi manajemen tugas dengan checklist dan timeline"
-                  className="rounded-md mx-auto w-full max-w-xs"
-                />
               </div>
             </div>
           </div>

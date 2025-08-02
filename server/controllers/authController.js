@@ -87,7 +87,7 @@ class AuthController {
 
             let user = await User.findOne({ where: { email } })
             if (!user) {
-                User.create({
+                user = await User.create({
                     name,
                     email,
                     password: Math.random().toString(33).slice(-13)
@@ -96,7 +96,14 @@ class AuthController {
 
             const access_token = signToken({ id: user.id })
 
-            res.status(200).json({ access_token })
+            res.status(200).json({
+                access_token,
+                user: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                }
+            })
         } catch (err) {
             console.log("ERROR LOGIN WITH GOOGLE", err);
             next(err);

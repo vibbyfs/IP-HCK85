@@ -5,6 +5,7 @@ export default function SidebarDashboard() {
 
   function handleLogout() {
     localStorage.removeItem("access_token");
+    localStorage.removeItem("UserId");
     return navigate("/");
   }
 
@@ -29,7 +30,7 @@ export default function SidebarDashboard() {
           Laporan Warga
         </Link>
         <Link
-          to="/reports/create"
+          to="/reports-form"
           className="block py-2 px-4 hover:bg-gray-100 rounded-lg"
         >
           Buat Laporan

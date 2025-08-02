@@ -44,17 +44,17 @@ export default function ProtectedLayout() {
 
   if (
     citizenData &&
-    (currentPath === "/addresses/form" || currentPath === "/citizens/form")
+    (currentPath === "/addresses-form" || currentPath === "/citizens-form")
   ) {
     return <Navigate to="/dashboard" />;
   }
 
   if (
     !citizenData &&
-    currentPath !== "/addresses/form" &&
-    currentPath !== "/citizens/form"
+    currentPath !== "/addresses-form" &&
+    currentPath !== "/citizens-form"
   ) {
-    return <Navigate to="/addresses/form" />;
+    return <Navigate to="/addresses-form" />;
   }
 
   return <Outlet />;
