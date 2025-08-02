@@ -61,6 +61,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    status: {
+      type: DataTypes.ENUM('Belum Diproses', 'Sedang Diproses', 'Sudah Selesai'),
+      defaultValue: 'Belum diproses',
+      allowNull: false
+    },
     latitude: {
       type: DataTypes.STRING,
       allowNull: true,

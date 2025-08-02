@@ -41,6 +41,11 @@ module.exports = {
         type: Sequelize.DECIMAL,
         allowNull: true
       },
+      status: {
+        type: Sequelize.ENUM('Belum Diproses', 'Sedang Diproses', 'Sudah Selesai'),
+        defaultValue: 'Belum Diproses',
+        allowNull: false
+      },
       longitude: {
         type: Sequelize.DECIMAL,
         allowNull: true
