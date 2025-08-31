@@ -1,9 +1,15 @@
 {
-
+  "name": "remindly-server",
+  "version": "1.0.0",
+  "description": "Modular reminder assistant backend with authentication, scheduling, and cloud deployment",
+  "main": "server.js",
   "scripts": {
-    "test": "jest --runInBand --detectOpenHandles --forceExit --verbose"
+    "start": "node bin/www",
+    "dev": "nodemon bin/www",
+    "test": "jest --runInBand --detectOpenHandles --forceExit --verbose",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:seed": "sequelize-cli db:seed:all"
   },
-
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cloudinary": "^1.41.3",

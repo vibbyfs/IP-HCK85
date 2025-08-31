@@ -45,7 +45,7 @@ export default function LoginPage() {
       }
 
       toast.success("Login success");
-      navigate("/addresses-form");
+      navigate("/");
     } catch (err) {
       console.log("ERROR LOGIN WITH GOOGLE", err);
     }
