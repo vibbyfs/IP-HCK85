@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SidebarDashboard from "../components/SideBarDashboard";
+import SidebarDashboard from "../components/SidebarDashboard";
 import RightSidebar from "../components/RightSidebar";
 import ReportCard from "../components/ReportCard";
 import http from "../lib/http";

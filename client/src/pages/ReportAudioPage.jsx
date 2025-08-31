@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import SidebarDashboard from "../components/SideBarDashboard";
+import SidebarDashboard from "../components/SidebarDashboard";
 import http from "../lib/http";
 import { useNavigate } from "react-router";
 import { Mic, Square } from "lucide-react";

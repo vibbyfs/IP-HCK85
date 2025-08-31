@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SidebarDashboard from "../components/SideBarDashboard";
+import SidebarDashboard from "../components/SidebarDashboard";
 import http from "../lib/http";
 import { toast } from "react-hot-toast";
 import { useNavigate, useLocation } from "react-router";

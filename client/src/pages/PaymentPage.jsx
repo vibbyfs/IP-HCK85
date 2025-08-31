@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SidebarDashboard from "../components/SideBarDashboard";
+import SidebarDashboard from "../components/SidebarDashboard";
 import http from "../lib/http";
 import toast from "react-hot-toast";
 
