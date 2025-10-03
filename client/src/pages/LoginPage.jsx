@@ -2,31 +2,31 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, Navigate, useNavigate } from "react-router";
 import http from "../lib/http";
+import { useAuth } from "../hooks/useAuth";
 
 export default function LoginPage() {
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(false);
 
     try {
-      const response = await http.post("/auth/login", {
-        email,
-        password,
-      });
-
-      localStorage.setItem("access_token", response.data.access_token);
-
-      navigate("/addresses/form");
+  await login({ email, password });
+  navigate("/addresses/form");
     } catch (err) {
-      console.error("Login error:", err);
-      const msgErr = err.response?.data?.message || "Something went wrong.";
-      toast.dismiss();
-      toast.error(msgErr);
+      const errorMsg = err?.response?.data?.message || "Something went wrong!";
+      setError(errorMsg);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   async function handleCredentialResponse(response) {
     console.log("Encoded JWT ID token: " + response.credential);
@@ -71,7 +71,7 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={onSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email

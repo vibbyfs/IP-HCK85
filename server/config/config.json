@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "postgres",
-    "database": "rt_care",
+    "database": "RT-CARE",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": false
@@ -10,7 +10,7 @@
   "test": {
     "username": "postgres",
     "password": "postgres",
-    "database": "rt_care_test",
+    "database": "RT-CARE-TEST",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": false
