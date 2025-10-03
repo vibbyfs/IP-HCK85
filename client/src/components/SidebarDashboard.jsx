@@ -1,12 +1,14 @@
 import { Link, useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 export default function SidebarDashboard() {
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
-  function handleLogout() {
-    localStorage.removeItem("access_token");
-    return navigate("/");
-  }
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div>
@@ -47,6 +49,7 @@ export default function SidebarDashboard() {
         >
           My Profile
         </Link>
+
         <button
           onClick={handleLogout}
           className="block py-2 px-4 hover:bg-gray-100 rounded-lg text-red-500"

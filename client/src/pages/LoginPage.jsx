@@ -18,8 +18,8 @@ export default function LoginPage() {
     setError(false);
 
     try {
-  await login({ email, password });
-  navigate("/addresses/form");
+      await login({ email, password });
+      navigate("/addresses/form");
     } catch (err) {
       const errorMsg = err?.response?.data?.message || "Something went wrong!";
       setError(errorMsg);
@@ -47,8 +47,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     google.accounts.id.initialize({
-      client_id:
-        "119450448936-0cbt98b97e8m4vhfga46ora1d8u9936k.apps.googleusercontent.com",
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
       callback: handleCredentialResponse,
     });
     google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
